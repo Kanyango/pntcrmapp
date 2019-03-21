@@ -1,0 +1,74 @@
+<% include ../../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Collected Products From Vendor
+	</div>
+	<div class="page-actions">
+		<a href="/sale/collected_new/" class="btn btn-outline-primary">Add Collected</a>
+	</div>
+</div>
+<div class="page-content">
+	<table class="table table-striped table-hover table-sm data-tables">
+		<thead class="thead-dark">
+		<tr>
+			<th scope="col">Date</th>
+			<th scope="col">Vendor</th>
+			<th scope="col">Products</th>
+			<th scope="col">Collected By</th>
+			<th scope="col" class="actions">Actions</th>
+		</tr>
+	</thead>
+	<tbody>
+		<% for(var cprod of cproducts ){ %>
+			<tr>
+				<td>
+					<%
+					var created = new Date(cprod.created_at);
+					var dd = created.getDate();
+					var mm = created.getMonth()+1;
+					var yyyy = created.getFullYear();
+					if(dd < 10){
+					    dd='0'+dd;
+					}
+					if(mm < 10){
+					    mm='0'+mm;
+					}
+					var created = dd+'-'+mm+'-'+yyyy;
+					%>
+					<%= created %></td>
+				<td>
+					<% for(var ven of vendor ){
+							if(ven.id == cprod.vendor){
+						%>
+						<%= ven.name %>
+						<% } } %>
+				</td>
+				<td>
+					<% for(var prod of products ){%>
+							<% if(prod.id == cprod.product){
+						%>
+						<%= prod.title %>
+						<% } } %>
+				</td>
+				<td>
+					<% for(var u of user){
+						if(u.id==cprod.col_user){ %>
+						<%= u.first_name %> <%= u.last_name %>
+					<% } } %>
+				</td>
+				<td>
+					<% var i=0; for(var cprodi of cprodI){
+							if(cprodi.collected == cprod.id){
+								if(i==0){
+						%>
+
+					<% } } i++;} %>
+					<a href="/sale/vendor_prod_info/<%= cprod.id %>" class="badge badge-primary">view</a> |
+					<a href="/sale/assign_imei/<%= cprod.id %>" class="badge badge-secondary">Assign Imei</a>
+				</td>
+			</tr>
+		<% } %>
+	</tbody>
+</table>
+</div>
+<% include ../../../partials/footer %>

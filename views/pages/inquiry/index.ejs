@@ -1,0 +1,277 @@
+<% include ../../partials/header %>
+<%
+var monthNames = [
+    "Jan", "Feb", "Mar",
+    "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct",
+    "Nov", "Dec"
+    ];
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+		year = d.getFullYear(),
+		hour = d.getHours(),
+		minute = d.getMinutes();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+	return [day+'-'+monthNames[d.getMonth()]+'-'+year,year+'-'+month+'-'+day+'  '+ hour+':'+minute];
+	//return day+'-'+month+'-'+year+'  '+ hour+':'+minute;
+    //return [day, month, year].join('-') Hour+':'+Minute;
+}
+%>
+<div class="page-header">
+	<div class="page-title">
+		Inquiries
+	</div>
+	<div class="page-actions">
+		<a href="/inquiry/add/" class="btn btn-primary">New Inquiry</a>
+	</div>
+</div>
+<div class="page-content">
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="Web-tab" data-toggle="tab" href="#Web" role="tab" aria-controls="Web" aria-selected="true">Web </a>
+  </li>
+  <li class="nav-item">
+	<% var count = 0; for(var q of query){
+	if(q.status == 'Open'){
+		count++;
+	}}%>
+<a class="nav-link" id="Open-tab" data-toggle="tab" href="#Open" role="tab" aria-controls="Open" aria-selected="true">Open <span class="badge badge-light"><%= count %></span></a>
+</li>
+	<li class="nav-item">
+		<% var count = 0; for(var q of query){
+		if(q.status == 'Pending'){
+			count++;
+		}}%>
+    <a class="nav-link" id="Pending-tab" data-toggle="tab" href="#Pending" role="tab" aria-controls="Pending" aria-selected="false">Pending <span class="badge badge-light"><%= count %></span></a>
+  </li>
+	<li class="nav-item">
+		<% var count = 0; for(var q of query){
+		if(q.status == 'Closed'){
+			count++;
+		}} %>
+    <a class="nav-link" id="Closed-tab" data-toggle="tab" href="#Closed" role="tab" aria-controls="Closed" aria-selected="false">Closed <span class="badge badge-light"><%= count %></span></a>
+  </li>
+  <li class="nav-item">
+		<% var count = 0; for(var q of query){
+		if(q.status == 'Cancelled'){
+			count++;
+		}}%>
+    <a class="nav-link" id="Cancelled-tab" data-toggle="tab" href="#Cancelled" role="tab" aria-controls="Cancelled" aria-selected="false">Cancelled <span class="badge badge-light"><%= count %></span></a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+		<div class="tab-pane fade show active" id="Web" role="tabpanel" aria-labelledby="Web-tab">
+			<br>
+			<ul class="nav nav-tabs" id="WebInquery" role="tablist">
+				<li class="nav-item">
+					<% var count = 0; for(var q of saleCont){
+						if(q.status == 'raw'){
+							count++;
+					}}%>
+					<a class="nav-link active" id="RawI-tab" data-toggle="tab" href="#RawI" role="tab" aria-controls="RawI" aria-selected="true">Raw <span class="badge badge-light"><%= count %></span></a>
+				</li>
+				<li class="nav-item">
+					<% var count = 0; for(var q of saleCont){
+						if(q.status == 'pending'){
+							count++;
+					}}%>
+					<a class="nav-link" id="PendingI-tab" data-toggle="tab" href="#PendingI" role="tab" aria-controls="PendingI">Pending <span class="badge badge-light"><%= count %></span> </a>
+				</li>
+				<li class="nav-item">
+					<a class="nav-link" id="ClosedI-tab" data-toggle="tab" href="#ClosedI" role="tab" aria-controls="ClosedI">Closed</a>
+				</li>
+			</ul>
+			<div class="tab-content" id="myTabContent">
+				<div class="tab-pane fade show active" id="RawI" role="tabpanel" aria-labelledby="RawI-tab">
+					<table class="table table-striped table-hover table-sm data-tables">
+						<thead class="thead-dark">
+							<tr>
+								<th>Date</th>
+								<th>Name</th>
+								<th>Product</th>
+								<th>Note</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for(var s of saleCont){
+								if(s.status == 'raw'){ %>
+							<tr>
+								<td data-order="<%= formatDate(s.created_at)[1]  %>"> <%= formatDate(s.created_at)[0]  %></td>
+								<td><%= s.name %></td>
+								<td><%= s.product.title %></td>
+								<td><%= s.note %></td>
+								<td><button type="button" class="btn btn-info" onclick="webIq_view('<%= s.id %>')">View</button></td>
+							</tr>
+							<% } } %>
+						</tbody>
+					</table>
+				</div>
+				<div class="tab-pane fade" id="PendingI" role="tabpanel" aria-labelledby="PendingI-tab">
+					<table class="table table-striped table-hover table-sm data-tables">
+						<thead class="thead-dark">
+							<tr>
+								<th>Date</th>
+								<th>Name</th>
+								<th>Product</th>
+								<th>Note</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for(var s of saleCont){
+								if(s.status == 'pending'){ %>
+							<tr>
+								<td data-order="<%= formatDate(s.created_at)[1]  %>"> <%= formatDate(s.created_at)[0]  %></td>
+								<td><%= s.name %></td>
+								<td><%= s.product.title %></td>
+								<td><%= s.note %></td>
+								<td><button type="button" class="btn btn-info" onclick="webIq_view('<%= s.id %>')">View</button></td>
+							</tr>
+							<% } } %>
+						</tbody>
+					</table>
+				</div>
+				<div class="tab-pane fade" id="ClosedI" role="tabpanel" aria-labelledby="ClosedI-tab">
+					<table class="table table-striped table-hover table-sm data-tables">
+						<thead class="thead-dark">
+							<tr>
+								<th>Date</th>
+								<th>Name</th>
+								<th>Product</th>
+								<th>Note</th>
+								<th>Action</th>
+							</tr>
+						</thead>
+						<tbody>
+							<% for(var s of saleCont){
+								if(s.status == 'closed'){ %>
+							<tr>
+								<td data-order="<%= formatDate(s.created_at)[1]  %>"> <%= formatDate(s.created_at)[0]  %></td>
+								<td><%= s.name %></td>
+								<td><%= s.product.title %></td>
+								<td><%= s.note %></td>
+								<td><button type="button" class="btn btn-info" onclick="webIq_view('<%= s.id %>')">View</button></td>
+							</tr>
+							<% } } %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			
+		</div>
+		<div class="tab-pane fade" id="Open" role="tabpanel" aria-labelledby="Open-tab">
+			<table class="table table-striped table-hover table-sm data-tables">
+				<thead class="thead-dark">
+					<tr>
+						<th>Date</th>
+						<th>Query</th>
+						<th>By</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for(var q of query){
+						if(q.status == 'Open'){ %>
+					<tr>
+							<td data-order="<%= formatDate(q.created_at)[1]  %>"> <%= formatDate(q.created_at)[0]  %></td>
+							<td><%= q.query %></td>
+							<td><%= q.user.first_name %> <%= q.user.last_name %></td>
+							<td><a href="/inquiry/view/<%= q.id %>" class="btn btn-primary">view</a></td>
+					</tr>
+					<% } } %>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="Pending" role="tabpanel" aria-labelledby="Pending-tab">
+			<table class="table table-striped table-hover table-sm data-tables">
+				<thead class="thead-dark">
+					<tr>
+						<th>Date</th>
+						<th>Query</th>
+						<th>By</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for(var q of query){
+						if(q.status == 'Pending'){ %>
+					<tr>
+							<td data-order="<%= formatDate(q.created_at)[1]  %>"> <%= formatDate(q.created_at)[0]  %></td>
+							<td><%= q.query %></td>
+							<td><%= q.user.first_name %> <%= q.user.last_name %></td>
+							<td><a href="/inquiry/view/<%= q.id %>" class="btn btn-primary">view</a></td>
+					</tr>
+					<% } } %>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="Closed" role="tabpanel" aria-labelledby="Closed-tab">
+			<table class="table table-striped table-hover table-sm data-tables">
+				<thead class="thead-dark">
+					<tr>
+						<th>Date</th>
+						<th>Query</th>
+						<th>By</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for(var q of query){
+						if(q.status == 'Closed'){ %>
+					<tr>
+							<td data-order="<%= formatDate(q.created_at)[1]  %>"> <%= formatDate(q.created_at)[0]  %></td>
+							<td><%= q.query %></td>
+							<td><%= q.user.first_name %> <%= q.user.last_name %></td>
+							<td><a href="/inquiry/view/<%= q.id %>" class="btn btn-primary">view</a></td>
+					</tr>
+					<% } } %>
+				</tbody>
+			</table>
+		</div>
+		<div class="tab-pane fade" id="Cancelled" role="tabpanel" aria-labelledby="Cancelled-tab">
+			<table class="table table-striped table-hover table-sm data-tables">
+				<thead class="thead-dark">
+					<tr>
+						<th>Date</th>
+						<th>Query</th>
+						<th>By</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+				<tbody>
+					<% for(var q of query){
+						if(q.status == 'Cancelled'){ %>
+					<tr>
+							<td data-order="<%= formatDate(q.created_at)[1]  %>"> <%= formatDate(q.created_at)[0]  %></td>
+							<td><%= q.query %></td>
+							<td><%= q.user.first_name %> <%= q.user.last_name %></td>
+							<td><a href="/inquiry/view/<%= q.id %>" class="btn btn-primary">view</a></td>
+					</tr>
+					<% } } %>
+				</tbody>
+			</table>
+		</div>
+</div>
+</div>
+<div class="modal fade" id="WebInqueryEdit" tabindex="-1" role="dialog" aria-labelledby="WebInqueryEdit" aria-hidden="true">
+	<div class="modal-dialog modal-lg" role="document">
+		<div class="modal-content">
+		<div class="modal-header">
+			<h5 class="modal-title" id="exampleModalLabel">Web Inquery Edit</h5>
+			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+			<span aria-hidden="true">&times;</span>
+			</button>
+		</div>
+		<div id="viewBody" class="modal-body">
+
+		</div>
+		</div>
+	</div>
+</div>
+<% include ../../partials/footer %>

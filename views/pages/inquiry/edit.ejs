@@ -1,0 +1,68 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Add Inquiry
+	</div>
+	<div class="page-actions">
+  </div>
+  <div class="page-content">
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div id="client_field" class="col-md-8">
+
+      </div>
+    </div>
+    <hr>
+    <form action="/inquiry/edit/<%= query.id %>" method="post" role="form" class="row">
+      <div id ="nSaleB" class="col-md-4 col-sm-6 col-xs-12">
+        <div class="md-form">
+          <label for="first_name">First Name</label>
+          <input type="text" id="first_name" name="first_name" class="form-control" value="<%= client.first_name %>" disabled>
+        </div>
+        <div class="md-form">
+          <label for="first_name">Last Name</label>
+          <input type="text" id="last_name" name="last_name" class="form-control" value="<%= client.last_name %>" disabled>
+        </div>
+        <div class="md-form">
+          <label for="email">Email</label>
+          <input type="email" id="email" name="email" class="form-control" value="<%= client.email %>" disabled>
+        </div>
+        <div class="md-form">
+          <label for="phone">Phone</label>
+          <input type="text" id="phone" name="phone" class="form-control" value="<%= client.phone %>" disabled>
+        </div>
+      </div>
+      <div class="col-md-8 col-sm-6 col-xs-12">
+        <div class="md-form">
+          <label for="query">Query</label>
+          <% let rDate = '';
+             let rDateId = '';
+           for(var ri of rInquiry){
+      				if(query.id == ri.inquiry){
+      						for(var r of reminder){
+      							if(r.id == ri.reminder){
+                      rDate = r.date;
+                      rDateId = r.id;
+      						 }
+      						}
+
+      				 }
+      			 } %>
+          <textarea id="query" name="query" class="form-control"><%= query.query %></textarea>
+        </div>
+				<div class="md-form">
+          <label for="reminder">Reminder</label>
+          <input type="text" name="reminder" id="datetimepicker" value="<%= rDate %>" placeholder="dd-mm-yyyy hh:ii" class="form-control">
+          <input type="hidden" name="reminder_id" value="<%= rDateId %>">
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+    </form>
+	</div>
+</div>
+<% include ../../partials/footer %>

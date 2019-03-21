@@ -1,0 +1,45 @@
+<div class="row">
+  <% var id;
+   for(var s of sale){ %>
+    <div class="col-md-6">
+        <%= s.first_name %>
+    </div>
+    <div class="col-md-6">
+        <%= s.last_name %>
+    </div>
+    <div class="col-md-6">
+        <%= s.phone %>
+    </div>
+    <div class="col-md-6">
+        <%= s.email %>
+    </div>
+  <% id= s.id; } %>
+<hr>
+<div class="col-md-12">
+  <table class="table m-table table-bordered table-hover table-heading">
+    <thead>
+      <tr>
+        <th>Product</th>
+        <th>Price</th>
+        <th>Cost</th>
+        <th>Quantity</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <% for(var p of sprod){
+          if(id==p.sale){
+            for(var prod of product){
+               if(p.product==prod.id){
+            %>
+            <td><%= prod.title %></td>
+            <td><%= p.price %></td>
+            <td><%= p.cost %></td>
+            <td><%= p.qty %></td>
+           <% }  } } } %>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>

@@ -1,0 +1,42 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Sales Web
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+	<table class="table table-striped table-hover table-sm data-tables">
+		<thead class="thead-dark">
+			<tr>
+        <th>Date</th>
+				<th>Client</th>
+				<th>Location</th>
+				<th>Total</th>
+				<th>Status</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var sale of saleWeb ){ %>
+			<tr>
+        <td><%= sale.created_at %></td>
+				<td><%= sale.first_name %> <%= sale.last_name %></td>
+				<td><%= sale.delivery_location %></td>
+				<td>
+          <% var total=0; for(var c of sale.cart ){
+            total=total+c.price
+           } %>
+           Ksh. <%= total %>
+          </td>
+				<td><%= sale.status %></td>
+				<td><a href="/sale/sale_web_view/<%= sale.id %>">view</a></td>
+			</tr>
+			<% } %>
+		</tbody>
+	</table>
+
+</div>
+<% include ../../partials/footer %>

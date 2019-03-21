@@ -1,0 +1,45 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+
+</div>
+<div class="page-header">
+	<div class="page-title">
+		Blogs
+	</div>
+	<div class="page-actions">
+		<a href="/blog/add" class="btn btn-success pull-right">Add Blog</a>
+	</div>
+</div>
+<div class="page-content">
+	<table class="table table-striped table-hover table-sm data-tables">
+		<thead class="thead-dark">
+			<tr>
+	      <th scope="col">Name</th>
+	      <th scope="col">Category</th>
+	      <th scope="col">Status</th>
+	      <th scope="col" class="actions">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+	    <% for(var b of blog){ %>
+	    <tr>
+	        <td><%= b.title %> </td>
+	        <td><%= b.category %></td>
+	        <td><%= b.status %></td>
+	        <td class="actions">
+	          <a href="/blog/view/<%= b.id %>" class="btn btn-success">View</a>
+	        </td>
+	    </tr>
+	    <% } %>
+		</tbody>
+	</table>
+</div>
+<% include ../../partials/footer %>

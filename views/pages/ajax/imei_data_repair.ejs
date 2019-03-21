@@ -1,0 +1,40 @@
+<tr id="repairCount<%= colP.id %>">
+  <td>
+    <%= colP.imei %>
+    <input name="imei[]" type="hidden" value="<%= colP.id %>" />
+  </td>
+  <td>
+     <%
+        for(var cl of colV){
+          if(colP.collected == cl.id){
+            for(var p of products){
+              if(cl.product == p.id){
+                %><%= p.title %><input name="product[]" type="hidden" value="<%= p.title %>" /><%
+              }
+            }
+          }
+        }
+     %>
+  </td>
+  <td>
+    <%
+       for(var cl of colV){
+         if(colP.collected == cl.id){
+           for(var v of vendor){
+             if(cl.vendor == v.id){
+               %><%= v.name %><%
+             }
+           }
+         }
+       }
+    %>
+  </td>
+  <td>
+    <td><textarea name="issue[]" class="form-control"></textarea>
+  </td>
+  <td>
+    <button type="button" class="btn btn-danger btn-app-sm btn-circle" onclick="removeProdR('<%= colP.id %>');">
+      <i class="fa fa-times"></i>
+    </button>
+  </td>
+</tr>

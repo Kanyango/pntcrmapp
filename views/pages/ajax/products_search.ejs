@@ -1,0 +1,24 @@
+<%if(products.length > 0){ %>
+  <table class="table table-striped">
+    <% for(var p of products){ %>
+            <tr>
+              <td>
+                <%= p.title %>
+              <% for(var pv of pvendor){
+                if(pv.products == p.id){ %>
+<br>
+                    <% for(var v of vendor){
+                      if(pv.vendor == v.id){ %>
+                    <%= v.name %>
+                    <% } } %>
+                  ::
+                    <%= pv.cost %>
+
+                <% } } %>
+              </td>
+                </tr>
+    <% }  %>
+  </table>
+<% } else{ %>
+  No Data
+<% } %>

@@ -1,0 +1,60 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Edit User
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form class="row" action="/user/edit/<%= user.id %>" method="post">
+    <div class="col-md-4">
+      <label for="first_name">First Name</label>
+      <input type="text" name="first_name" class="form-control" value="<%= user.first_name %>" required>
+    </div>
+    <div class="col-md-4">
+      <label for="middle_name">Middle Name</label>
+      <input type="text" name="middle_name" class="form-control" value="<%= user.middle_name %>" required>
+    </div>
+    <div class="col-md-4">
+      <label for="last_name">Last Name</label>
+      <input type="text" name="last_name" class="form-control" value="<%= user.last_name %>" required>
+    </div>
+    <div class="col-md-4">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control" value="<%= user.email %>" required>
+    </div>
+    <div class="col-md-4">
+      <label for="phone">Phone</label>
+      <input type="text" name="phone" class="form-control" value="<%= user.phone %>" required>
+    </div>
+    <div class="col-md-4">
+      <label for="national_id">National Id</label>
+      <input type="text" name="national_id" class="form-control" value="<%= user.national_id %>" required>
+    </div>
+    <div class="col-md-4">
+      <label for="gender">Gender</label>
+      <select class="form-control" name="gender" required>
+          <option value="">Select Gender</option>
+          <option value="male" <% if(user.gender =='male'){ %> selected <% } %>>Male</option>
+          <<option value="female" <% if(user.gender =='female'){ %> selected <% } %>>Female</option>
+      </select>
+    </div>
+    <div class="col-md-4">
+      <label for="role">Role</label>
+      <select class="form-control" name="role" required>
+          <option value="">Select Role</option>
+          <option value="user" <% if(user.role =='user'){ %> selected <% } %>>User</option>
+          <<option value="admin" <% if(user.role =='admin'){ %> selected <% } %>>Admin</option>
+      </select>
+    </div>
+    <div class="clearfix"></div>
+    <div class="col-md-12 padding-15">
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<% include ../../partials/footer %>

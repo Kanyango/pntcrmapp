@@ -1,0 +1,501 @@
+<% include ../../partials/header %>
+<%
+var monthNames = [
+    "Jan", "Feb", "Mar",
+    "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct",
+    "Nov", "Dec"
+    ];
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+		year = d.getFullYear(),
+		hour = d.getHours(),
+		minute = d.getMinutes();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+	return day+'-'+monthNames[d.getMonth()]+'-'+year;
+}
+%>
+<div class="page-header">
+	<div class="page-title">
+    Product
+	</div>
+	<div class="page-actions">
+    <select class=" custom-select" name="product-status" id="product-status" style="width: 150px;display: initial;">
+      <option value="0" <% if(products.is_active==0){ %> selected <% } %>>Store Disabled</option>
+      <option value="1" <% if(products.is_active==1){ %> selected <% } %>>Store Enabled</option>
+    </select>
+		<select class=" custom-select" name="product-web-status" id="product-web-status" style="width: 150px;display: initial;">
+      <option value="0" <% if(products.is_web_active==0){ %> selected <% } %>>Web Disabled</option>
+      <option value="1" <% if(products.is_web_active==1){ %> selected <% } %>>Web Enabled</option>
+		</select>
+		<select class=" custom-select" name="product-stock-status" id="product-stock-status" style="width: 150px;display: initial;">
+      <option value="0" <% if(products.stock==0){ %> selected <% } %>>No Stock</option>
+			<option value="1" <% if(products.stock==1){ %> selected <% } %>>In Stock</option>
+			<option value="2" <% if(products.stock==2){ %> selected <% } %>>Upcoming</option>
+    </select>
+
+		<% if(products.deleted==1){ %>
+			  <a href="/products/product_undelete/<%= products.id %>" class="btn btn-success btn-sm" onclick="return confirm('Are you sure you want to  Undo delete this Product?');">UNDO DELETE</a>
+		<% } else{ %>
+				<a href="/products/product_delete/<%= products.id %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Product?');">DELETE</a>
+		<% } %>
+
+		<a href="/products/edit-info/<%= products.id %>" class="btn btn-outline-primary btn-sm">Edit Info</a>
+		<a href="/products/edit-image/<%= products.id %>" class="btn btn-outline-success btn-sm">Edit Images</a>
+		<a href="/products/edit-description/<%= products.id %>" class="btn btn-outline-info btn-sm">Edit Description</a>
+		<!-- <a href="/products/edit-entity/<%= products.id %>" class="btn btn-outline-primary btn-sm">Edit Entity</a> -->
+		<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#category-Modal">Edit Category</button>
+		<a href="/products/add-associated/<%= products.id %>" class="btn btn-outline-info btn-sm" >Add Associated</a>
+		<a href="/products/edit-seo/<%= products.id %>" class="btn btn-outline-success btn-sm">Edit SEO</a>
+		<a href="/products/add-vendor/<%= products.id %>" class="btn btn-outline-primary btn-sm" >Add Vendor</a>
+		<button type="button" class="btn btn-outline-danger btn-sm" data-toggle="modal" data-target="#tag-Modal">Add Tag</button>
+	</div>
+</div>
+<div class="page-content">
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+		<li class="nav-item">
+			<a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Info</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="false">Description</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="entity-tab" data-toggle="tab" href="#entity" role="tab" aria-controls="entity" aria-selected="false">Entity</a>
+		</li>
+		<li class="nav-item">
+			<a class="nav-link" id="seo-tab" data-toggle="tab" href="#seo" role="tab" aria-controls="seo" aria-selected="false">SEO</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+	  <div class="tab-pane active" id="info" role="tabpanel" aria-labelledby="info-tab">
+			<table class="table table-striped table-bordered table-sm">
+				<thead>
+					<tr>
+			      <th>Title</th>
+			      <th>Brand</th>
+						<th>Category</th>
+			      <th>Price</th>
+			      <th>Cost</th>
+			      <th>Special Price</th>
+			    </tr>
+				</thead>
+		    <tr>
+		      <td><%= products.title %></td>
+		      <td><%= brand.title %></td>
+					<td><%= category.title %></td>
+		      <td><%= products.price %></td>
+		      <td><%= products.cost %></td>
+					<td><%= products.special_price %></td>
+		    </tr>
+		  </table>
+
+			<div class="row">
+				<div class="col-md-12">
+					<h5>Tags</h5>
+					<hr>
+					<% for(var t of products.tags){
+						for(var s of tags){
+							if(s.id == t){ %>
+						<span class="badge badge-pill badge-secondary"><%= s.title %>
+							<a href="/products/delete-tag/<%= products.id %>/<%= t %>" onclick="return confirm('Are you sure you want to delete this item?');">X</a>
+						</span>
+					<% } } } %>
+				</div>
+				<div class="col-md-6">
+					<h5>Vendors</h5>
+					<table class="table table-striped table-bordered table-sm">
+						<thead>
+							<tr>
+					      <th>Name</th>
+								<th>Cost</th>
+								<th>Feature</th>
+								<th>Date</th>
+					      <th></th>
+					    </tr>
+						</thead>
+						<% for(var v of pvendor){%>
+	          <tr>
+	            <td><%=v.vendor.name %></td>
+							<td><%= v.cost %></td>
+							<td><%= v.feature %></td>
+							<td><%= formatDate(v.updated_at) %></td>
+							<td>
+								<a href="/products/delete-vendor/<%= v.id %>/<%= products.id %>" onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></td>
+	          </tr>
+	          <% } %>
+				  </table>
+				</div>
+				<div class="col-md-6">
+					<h5>Associated</h5>
+					<table class="table table-striped table-bordered table-sm">
+						<thead>
+							<tr>
+					      <th>Name</th>
+					      <th>Price</th>
+					      <th></th>
+					    </tr>
+						</thead>
+						<% for(var p of allprod){
+							for( var ap of products.associate_products){
+								if(p.id == ap){%>
+	          <tr>
+	            <td>
+	              <%= p.title %>
+	            </td>
+	            <td><%= p.price %></td>
+							<td><a href="/products/delete-associated/<%= products.id %>/<%= ap %>"onclick="return confirm('Are you sure you want to delete this item?');">Delete</a></td>
+	          </tr>
+	          <% } } } %>
+				  </table>
+				</div>
+			</div>
+
+	  </div>
+	  <div class="tab-pane" id="description" role="tabpanel" aria-labelledby="description-tab">
+			<div class="row">
+				<div class="col-md-6">
+					<% if(products. descriptions.youtube != ''){ %>
+						<iframe id="ytplayer" type="text/html" width="640" height="360"
+						src="https://www.youtube.com/embed/<%= products. descriptions.youtube%>"
+						frameborder="0"></iframe>
+					<% } %>
+					<div class="border-radius">
+						<h6 class="h4-header">Box Content</h6>
+						<div class="">
+							<%- products. descriptions.box_content %>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="border-radius">
+						<h6 class="h4-header">Short Description</h6>
+						<div class="">
+							<%- products. descriptions.short %>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12">
+					<div class="border-radius">
+						<h6 class="h4-header">Full Description</h6>
+						<div class="">
+							<%- products. descriptions.full %>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+	  <div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+			<div class="row">
+				<div class="col-md-6">
+						<div class="form-group">
+							<label for="front_small">Front Small</label>
+							<input type="text" class="form-control" id="front_small" placeholder="Front Small" value="<%= products.image_front_small %>" disabled >
+						</div>
+				</div>
+				<div class="col-md-6">
+						<div class="form-group">
+							<label for="front_big">Front Big</label>
+							<input type="text" class="form-control" id="front_big" placeholder="Front Big" value="<%= products.image_front_big %>" disabled>
+						</div>
+				</div>
+			</div>
+			<table class="table table-striped table-bordered table-sm">
+				<thead>
+					<tr>
+			      <th>Image</th>
+			      <th>Sort</th>
+			      <th>Action</th>
+			    </tr>
+				</thead>
+				<tbody>
+					<% for(var i of products.images){ %>
+						<tr>
+				      <td><img src="https://www.phonestablets.co.ke/assets/img/products/<%= i[0] %>" alt="<%= i[0] %>" style="max-width: 100px;"></td>
+				      <td><%= i[1] %></td>
+							<td></td>
+				    </tr>
+					<% } %>
+				</tbody>
+		  </table>
+	  </div>
+		<div class="tab-pane" id="entity" role="tabpanel" aria-labelledby="entity-tab">
+			<h5>Product Entities</h5>
+			<hr>
+			<form action="/products/add-entity/<%= products.id %>" method="POST" id="add_entity" autocomplete="off">
+				<div class="row">
+					<div class="col-md-3">
+							<select class="custom-select" name="entity" id="prod_entity">
+									<option value="">Choose Entity</option>
+									<% for(var e of entity){ %>
+										<option value="<%= e.id %>"><%= e.title %></option>
+									<% } %>
+								</select>
+					</div>
+					<div class="col-md-3">
+						<input type="text" name="e_value" id="e_value" class="form-control" placeholder="Entity Value">
+					</div>
+					<div class="col-md-3">
+							<button type="submit" name="button" class="btn btn-success">Add</button>
+					</div>
+				</div>	
+				<input type="hidden" name="product_id" value="<%= products.id %>">				
+			</form>
+			<hr>
+			<button type="button" class="btn btn-outline-success btn-sm" data-toggle="modal" data-target="#editEnt-Modal">Edit Entity</button>
+			<table class="table table-striped table-bordered table-sm">
+				<thead>
+					<th>Entity</th>
+					<th>Value</th>
+					<th></th>
+				</thead>
+				<tbody id="ent_prod">
+						<% for(var d of products.desc_entity){ %>
+					<tr>
+						<td>
+								<% for(var e of entity){
+										if(d.entity == e.id){ %>
+											<%= e.title %>
+								<% } } %>
+						</td>
+						<td><%= d.value %></td>
+						<td>
+								<a href="/products/delete-prod-ent/<%= products.id %>/<%= d.entity %>" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure you want to delete this Entity?');">Delete</a>
+						</td>
+					</tr>
+					<% } %>
+				</tbody>
+			</table>
+			<!-- <table class="table table-striped table-bordered table-sm">
+				<% for(var e of entity){
+					for(var a of a_entity){
+						if(a. entities == e.id){ %>
+				<tr>
+					<th><%= e.title %></th>
+					<td>
+						<% for(var p of p_entity){
+							if(p.entities==e.id){%>
+						<%= p.value %> ,
+					<% } } %>
+					</td>
+				</tr>
+				<% } } } %>
+			</table> -->
+	  </div>
+		<div class="tab-pane" id="seo" role="tabpanel" aria-labelledby="seo-tab">
+			<h5>SEO</h5>
+			<div class="row">
+				<div class="col-md-6">
+					<label for="url">URL</label>
+					<input type="text" id="url" name="url" value="<%= products.url %>" class="form-control" disabled>
+				</div>
+				<div class="col-md-6">
+					<label for="seo-title">Title</label>
+					<textarea id="seo-title" name="seo-title" class="form-control" disabled><%= products.seo.title %></textarea>
+				</div>
+				<div class="col-md-6">
+					<div class="border-radius">
+						<h6 class="h4-header">Keywords</h6>
+						<div class="padding-20">
+							<%- products.seo.keywords %>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="border-radius">
+						<h6 class="h4-header">Description</h6>
+						<div class="padding-20">
+							<%- products.seo.description %>
+						</div>
+					</div>
+				</div>
+			</div>
+	  </div>
+	</div>
+  <input type="hidden" name="id" value="<%= products.id %>">
+</div>
+<!-- Modal -->
+<div class="modal fade" id="editEnt-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+				<form action="/products/edit-entity/<%= products.id %>" method="POST">
+					<table class="table table-striped table-bordered table-sm">
+							<thead>
+								<th>Entity</th>
+								<th>Value</th>
+							</thead>
+							<tbody id="ent_prod">
+									<% for(var d of products.desc_entity){ %>
+								<tr>
+									<td>
+											<% for(var e of entity){
+													if(d.entity == e.id){ %>
+														<%= e.title %>
+											<% } } %>
+									</td>
+									<td>
+										<input type="hidden" class="form-control" name="entity[]" value="<%= d.entity %>">
+										<input type="hidden" class="form-control" name="entity_<%= d.entity %>" value="<%= d.entity %>">
+										<input type="text" class="form-control" name="value_<%= d.entity %>" value="<%= d.value %>">
+									</td>
+								</tr>
+								<% } %>
+							</tbody>
+						</table>
+						<button type="submit" name="button" class="btn btn-success">Edit</button>
+					</form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="vendor-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				<div id="vendor-body" class="modal-body">
+	
+				</div>
+			</div>
+		</div>
+	</div>
+<div class="modal fade" id="tag-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div id="tag-body" class="modal-body">
+				<form action="/products/add-tag/<%= products.id %>" method="post" autocomplete="off">
+					<div class="row">
+					<div class="col-md-12">
+						 <div class="form-group">
+							 <label class="control-label col-md-12 col-sm-12 col-xs-12">Title</label>
+							 <div class="col-md-12 col-sm-12 col-xs-12">
+								 <select class="selectpicker" data-live-search="true" name="tag" required>
+		 								<option value="">Select Tag</option>
+		 								<% for(var t of tags){ %>
+		 									<option value="<%= t.id %>"><%= t.title %></option>
+		 								<% } %>
+		 							</select>
+							 </div>
+						 </div>
+					 </div>
+					<div class="col-md-12">
+						<div class="form-actions">
+							 <button type="submit" class="btn btn-primary">Submit</button>
+						 </div>
+					</div>
+					</div>
+			 </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="category-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <form action="/products/edit-category/<%= products.id %>" method="POST" encType="multipart/form-data">
+					<div class="container">
+						<div class="row">
+							<div class="col-md-12 current-cat">
+								<ul>
+									<% var c_id1=0;
+									var c_id2=0;
+
+									 if(category.parent!=0){
+										for(var cat1 of allcategory){
+											if(category.parent==cat1.id){c_id2=cat1.id;
+												if(cat1.parent !=0){
+													for(var cat2 of allcategory){
+															if(cat1.parent==cat2.id){ c_id1=cat2.id; %>
+																<li><%= cat2.title %><span>></span></li>
+														<% }
+													}
+												}
+												%>
+													<li><%= cat1.title %><span>></span></li>
+												<%
+										 }
+										}
+									} %>
+									<li><%= category.title %></li>
+								</ul>
+
+							</div>
+							<div class="col-md-12">
+								<ul id="tree1">
+									<% var cat=[];
+									for(var cat1 of allcategory){
+										if(cat1.parent==0){
+											 cat.push(cat1);
+										}
+									} %>
+									<% for(var cat1 of cat){ %>
+									<li>
+										<%= cat1.title %><input type="radio" name="category" value="<%= cat1.id %>" <% if(category.id==cat1.id){ %> checked <% } %>>
+										 <ul>
+											 <% for(var cat2 of allcategory){
+												 if(cat2.parent==cat1.id){ %>
+												 <li>
+													<%= cat2.title %><input type="radio" name="category" value="<%= cat2.id %>" <% if(category.id==cat2.id){ %> checked <% } %>>
+													<ul>
+														<% for(var cat3 of allcategory){
+															if(cat3.parent==cat2.id){ %>
+																<li>
+																	<%= cat3.title %><input type="radio" name="category" value="<%= cat3.id %>" <% if(category.id==cat3.id){ %> checked <% } %>>
+																	<ul>
+																		<% for(var cat4 of allcategory){
+																			if(cat4.parent==cat3.id){ %>
+																				<li>
+																					<%= cat4.title %><input type="radio" name="category" value="<%= cat4.id %>" <% if(category.id==cat4.id){ %> checked <% } %>>
+																				</li>
+																			<% }
+																		} %>
+																	</ul>
+																</li>
+															<% }
+														} %>
+													</ul>
+												 </li>
+											 <% } } %>
+										</ul>
+									</li>
+									<% } %>
+								</ul>
+							</div>
+						</div>
+					</div>
+					<div class="col-md-12">
+						<div class="form-group padding-20">
+				      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+				        <button type="submit" class="btn btn-success">Submit</button>
+				      </div>
+				    </div>
+					</div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

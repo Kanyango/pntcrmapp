@@ -1,0 +1,195 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    New Product
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form action="/products/add" method="post" role="form" class="row" autocomplete="off">
+		<ul class="nav nav-tabs col-md-12 col-sm-12 col-xs-12" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="info-tab" data-toggle="tab" href="#info" role="tab" aria-controls="info" aria-selected="true">Info</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="false">Description</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="category-tab" data-toggle="tab" href="#category" role="tab" aria-controls="category" aria-selected="false">Category</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="images-tab" data-toggle="tab" href="#images" role="tab" aria-controls="images" aria-selected="false">Images</a>
+			</li>
+			<!-- <li class="nav-item">
+				<a class="nav-link" id="entity-tab" data-toggle="tab" href="#entity" role="tab" aria-controls="entity" aria-selected="false">Entity</a>
+			</li> -->
+		</ul>
+		<div class="clearfix"></div>
+		<div class="tab-content">
+		  <div class="tab-pane active" id="info" role="tabpanel" aria-labelledby="info-tab">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						<label class="control-label col-md-12 col-sm-12 col-xs-12" for="title">Attribute </label>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<select class="selectpicker" data-live-search="true" name="attrib_type" required>
+								<option value="">Select Attribute</option>
+								<% for(var i = 0; i < attrib.length; i++){ %>
+									<option value="<%= attrib[i].id %>"><%= attrib[i].title %></option>
+								<% } %>
+							</select>
+						</div>
+					</div>
+					<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+						<label class="control-label col-md-12 col-sm-12 col-xs-12" for="brand">Brand</label>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<select class="selectpicker" data-live-search="true" name="brand" id="brand" required>
+								<option value="">Select Brand</option>
+								<% for(var b of brand){ %>
+									<option value="<%= b.id %>"><%= b.title %></option>
+								<% } %>
+							</select>
+						</div>
+					</div>
+			    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+			      <label class="control-label col-md-12 col-sm-12 col-xs-12" for="title">Title </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+			        <input name="title" class="form-control" placeholder="Title" required>
+			      </div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+			      <label class="control-label col-md-12 col-sm-12 col-xs-12" for="price">Price </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+			        <input name='price' class = 'form-control' placeholder='Price' required>
+			      </div>
+			    </div>
+					<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+			      <label class="control-label col-md-12 col-sm-12 col-xs-12" for="reseller_price">Reseller Price </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+			        <input name='reseller_price' class = 'form-control' placeholder='Reseller Price'>
+			      </div>
+			    </div>
+					<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+			      <label class="control-label col-md-12 col-sm-12 col-xs-12" for="special_price">Special Price </label>
+			      <div class="col-md-9 col-sm-9 col-xs-12">
+			        <input name='special_price' class = 'form-control' placeholder='Special Price' value="0">
+			      </div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+			      <label class="control-label col-md-3 col-sm-3 col-xs-12" for="cost">Cost </label>
+			      <div class="col-md-9 col-sm-9 col-xs-12">
+			         <input type="text" name="cost" class="form-control" placeholder="Cost" required>
+			      </div>
+			    </div>
+				</div>
+		  </div>
+		  <div class="tab-pane" id="description" role="tabpanel" aria-labelledby="description-tab">
+				<div class="row">
+					<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+			      <label for="box_content" class="col-md-12 col-sm-12 col-xs-12">Box Content</label>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<textarea name="box_content" id="box_content" class="tinymce form-control"></textarea>
+						</div>
+			    </div>
+			    <div class="col-md-6 col-sm-6 col-xs-12 form-group">
+			      <label for="short" class="col-md-12 col-sm-12 col-xs-12">Highlights</label>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<textarea name="short" id="short" class="tinymce form-control"></textarea>
+						</div>
+			    </div>
+			    <div class="col-md-12 col-sm-12 col-xs-12 form-group">
+			      <label for="full" class="col-md-12 col-sm-12 col-xs-12">Description</label>
+						<div class="col-md-12 col-sm-12 col-xs-12">
+							<textarea name="full" id="full" class="tinymce form-control"></textarea>
+						</div>
+			    </div>
+				</div>
+		  </div>
+			<div class="tab-pane" id="category" role="tabpanel" aria-labelledby="category-tab">
+				<div class="container">
+					<ul id="tree1">
+						<%
+						var cat=[];
+						for(var cat1 of category){
+							if(cat1.parent==0){
+								 cat.push(cat1);
+							}
+						} %>
+	          <% for(var cat1 of cat){ %>
+	          <li>
+	            <%= cat1.title %><input type="checkbox" name="category" value="<%= cat1.id %>">
+	             <ul>
+								 <% for(var cat2 of category){
+									 if(cat2.parent==cat1.id){ %>
+									 <li>
+									 	<%= cat2.title %><input type="checkbox" name="category" value="<%= cat2.id %>">
+										<ul>
+											<% for(var cat3 of category){
+												if(cat3.parent==cat2.id){ %>
+													<li>
+														<%= cat3.title %><input type="checkbox" name="category" value="<%= cat3.id %>">
+														<ul>
+															<% for(var cat4 of category){
+																if(cat4.parent==cat3.id){ %>
+																	<li>
+																		<%= cat4.title %><input type="checkbox" name="category" value="<%= cat4.id %>">
+																	</li>
+																<% }
+															} %>
+														</ul>
+													</li>
+												<% }
+											} %>
+										</ul>
+									 </li>
+								 <% } } %>
+	            </ul>
+	          </li>
+	          <% } %>
+	        </ul>
+				</div>
+		  </div>
+		  <div class="tab-pane" id="images" role="tabpanel" aria-labelledby="images-tab">
+				<div class="container">
+					<div class="row">
+				      <div class="col-md-7 col-sm-7 col-xs-12" for="cost">Images</div>
+							<div class="col-md-5 col-sm-7 col-xs-12">
+								<button type="button" name="button" onclick="addImgRows()">Add Image</button>
+							</div>
+							<table>
+								<thead>
+									<tr>
+										<th>Image</th>
+										<th>Sort</th>
+										<th>Action</th>
+									</tr>
+								</thead>
+								<tbody id="imgRows">
+									<tr>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+							<div class="col-md-12 col-sm-12 col-xs-12">
+									<div class="form-group">
+										<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+											<button type="submit" class="btn btn-success">Submit</button>
+										</div>
+									</div>
+								</div>
+					</div>
+				</div>
+
+		  </div>
+			<!-- <div class="tab-pane" id="entity" role="tabpanel" aria-labelledby="entity-tab">
+				<div class="row">
+					<div id="attrib_fields" class="col-md-12 col-sm-12 col-xs-12 row"></div>
+					
+				</div>
+		  </div> -->
+		</div>
+  </form>
+</div>
+<% include ../../partials/footer %>

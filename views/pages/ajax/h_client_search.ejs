@@ -1,0 +1,8 @@
+<%if(client.length > 0){ %>
+<% for(var s of client){ %>
+        <a href="/client/view/<%= s.id %>"><%= s.first_name %> <%= s.last_name %> | <%= s.phone %></a>
+        <br>
+<% }  %>
+<% } else{ %>
+  No Data
+<% } %>

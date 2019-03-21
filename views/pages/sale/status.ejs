@@ -1,0 +1,15 @@
+<div class="row">
+  <h4 class="col-sm-12">Edit Sale Status</h4>
+  <form class="" action="/sale/status_edit/<%= status.id %>" method="post">
+    <input type="hidden" name="_method" value="put">
+        <div class="col-sm-6">
+          <label for="reason">Reason</label>
+          <textarea name="reason" id="reason" class="form-control"><%= status.reason %></textarea>
+    		</div>
+      <div class="clearfix"></div>
+      <input type="hidden" name="id" value="<%= status.sale %>">
+      <div class="form-group col-sm-12 padding-15">
+        <button type="submit" class="add_imei btn btn-primary">Submit</button>
+      </div>
+  </form>
+</div>

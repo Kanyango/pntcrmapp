@@ -1,0 +1,392 @@
+#top-header .navbar{padding: 0px;}
+.navbar-light .navbar-brand {width: 90%;}
+#top-header .logo{height: 65px;}
+#menu{border: 1px solid #706e6f;}
+#menu ul li .dropdown .btn{background-color: #FFF;color: #706d6f;border: none;box-shadow: none;}
+.home-header-top{color: #847f7f;}
+.margin-0{margin: 0px;}
+.btn{cursor: pointer;}
+.nav-item .show .btn {color: white !important;background-color: #02a0a1 !important;border-radius: 0px;}
+.nav-item:hover .dropdown .btn {color: #fff !important;background-color: #f1930f !important;border-radius: 0px;}
+.dropdown:hover .dropdown-menu {display: block;}
+.dropdown-menu {top: 93%; padding-top: 0px;border-radius: 0px;}
+.dropdown-item {
+padding: .2rem 1rem;
+font-size: 14px;
+}
+.page-header .page-title{
+font-size: 1.5em;
+border-bottom: 1px solid #01a293;
+color: #01a293;
+}
+.page-header .page-actions .btn{
+float: right;
+border-radius: 0px;
+}
+.page-content{
+clear: both;
+padding: 5px 0px;
+}
+.tree, .tree ul {
+margin:0;
+padding:0;
+list-style:none
+}
+.tree ul {
+margin-left:1em;
+position:relative
+}
+.tree ul ul {
+margin-left:.5em
+}
+.tree ul:before {
+content:"";
+display:block;
+width:0;
+position:absolute;
+top:0;
+bottom:0;
+left:0;
+border-left:1px solid
+}
+.tree li {
+margin:0;
+padding:0 1em;
+line-height:2em;
+color:#706e6f;
+font-weight:700;
+position:relative
+}
+.tree ul li:before {
+content:"";
+display:block;
+width:10px;
+height:0;
+border-top:1px solid;
+margin-top:-1px;
+position:absolute;
+top:1em;
+left:0
+}
+.tree ul li:last-child:before {
+background:#fff;
+height:auto;
+top:1em;
+bottom:0
+}
+.indicator {
+margin-right:5px;
+}
+.tree li a {
+text-decoration: none;
+color:#369;
+}
+.tree li button, .tree li button:active, .tree li button:focus {
+text-decoration: none;
+color:#369;
+border:none;
+background:transparent;
+margin:0px 0px 0px 0px;
+padding:0px 0px 0px 0px;
+outline: 0;
+}
+.nav-tabs {padding: 0px 15px;border-bottom: 1px solid #01a293;}
+.nav-tabs .nav-item.show .nav-link, .nav-tabs .nav-link.active {background-color: #f79e2e !important;color: #FFF;}
+.nav-tabs .nav-link {
+border: 1px solid #ddd;
+border-radius: 0px;
+border-bottom: none;
+border-left: none;
+background-color: #01a293;
+color: #FFF;
+}
+.nav-tabs .nav-link:first-child{
+border-left:1px solid #ddd;
+}
+/*
+Make bootstrap-select work with bootstrap 4 see:
+https://github.com/silviomoreto/bootstrap-select/issues/1135
+*/
+.dropdown-toggle.btn-default {
+color: #292b2c;
+background-color: #fff;
+border-color: #ccc;
+}
+
+.bootstrap-select.show>.dropdown-menu>.dropdown-menu {
+display: block;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li.hidden{
+display:none;
+}
+
+.bootstrap-select > .dropdown-menu > .dropdown-menu li a{
+display: block;
+width: 100%;
+padding: 3px 1.5rem;
+clear: both;
+font-weight: 400;
+color: #292b2c;
+text-align: inherit;
+white-space: nowrap;
+background: 0 0;
+border: 0;
+}
+
+.dropdown-menu > li.active > a {
+color: #fff !important;
+background-color: #337ab7 !important;
+}
+
+.bootstrap-select .check-mark::after {
+content: "✓";
+}
+
+.bootstrap-select button {
+overflow: hidden;
+text-overflow: ellipsis;
+}
+
+
+/* Make filled out selects be the same size as empty selects */
+.bootstrap-select.btn-group .dropdown-toggle .filter-option {
+display: inline !important;
+}
+
+.bootstrap-select select{display:none}
+
+span.multiselect-native-select {
+position: relative
+}
+span.multiselect-native-select select {
+border: 0!important;
+clip: rect(0 0 0 0)!important;
+height: 1px!important;
+margin: -1px -1px -1px -3px!important;
+overflow: hidden!important;
+padding: 0!important;
+position: absolute!important;
+width: 1px!important;
+left: 50%;
+top: 30px
+}
+.multiselect-container {
+position: absolute;
+list-style-type: none;
+margin: 0;
+padding: 0
+}
+.multiselect-container .input-group {
+margin: 5px
+}
+.multiselect-container>li {
+padding: 0
+}
+.multiselect-container>li>a.multiselect-all label {
+font-weight: 700
+}
+.multiselect-container>li.multiselect-group label {
+margin: 0;
+padding: 3px 20px 3px 20px;
+height: 100%;
+font-weight: 700
+}
+.multiselect-container>li.multiselect-group-clickable label {
+cursor: pointer
+}
+.multiselect-container>li>a {
+padding: 0
+}
+.multiselect-container>li>a>label {
+margin: 0;
+height: 100%;
+cursor: pointer;
+font-weight: 400;
+padding: 3px 0 3px 30px
+}
+.multiselect-container>li>a>label.radio, .multiselect-container>li>a>label.checkbox {
+margin: 0
+}
+.multiselect-container>li>a>label>input[type=checkbox] {
+margin-bottom: 5px
+}
+.btn-group>.btn-group:nth-child(2)>.multiselect.btn {
+border-top-left-radius: 4px;
+border-bottom-left-radius: 4px
+}
+.form-inline .multiselect-container label.checkbox, .form-inline .multiselect-container label.radio {
+padding: 3px 20px 3px 40px
+}
+.form-inline .multiselect-container li a label.checkbox input[type=checkbox], .form-inline .multiselect-container li a label.radio input[type=radio] {
+margin-left: -20px;
+margin-right: 0
+}
+.border-radius{border: 1px solid #ddd;border-radius: 5px;margin-bottom: 5px;}
+.padding-20{padding: 20px;}
+.h4-header{border-bottom: 1px solid #ddd;background-color: #00a29e;padding: 7px;font-size: 17px;color: #fff;}
+.current-cat ul {padding: 0px;margin: 0px;}
+.current-cat ul li{list-style: none;float: left;padding: 0px 5px;}
+.current-cat ul li span{margin-left: 10px;font-weight: bolder;color: #03a098;}
+.card-vendor{
+border-radius: 0px;
+margin: 10px 0px;
+}
+.card-vendor .card-header{
+color: #FFF;
+border-radius: 0px;
+}
+.card-vendor .card-body{
+padding: 0px;
+}
+.card-vendor .card-body .card-cont{
+float: left;
+width: 25%;
+text-align: center;
+border-right: 1px solid #ddd;
+padding: 0px;
+}
+.card-vendor .card-body .card-cont:last-child{
+border-right: none;
+}
+.card-vendor .card-body .card-cont .card-amount{
+font-size: 18px;
+font-weight: bolder;
+}
+.card-vendor .card-body .card-cont .card-name{
+
+}
+.home-pay{
+text-align: center;
+color: #FFF;
+padding: 5px;
+}
+.home-pay .top{
+font-weight: bold;
+}
+.home-pay .bottom{
+font-size: 12px;
+}
+#client_field p{
+cursor: pointer;
+}
+.home-btns{}
+#messages{}
+#messages ul{}
+#messages ul li{
+position: relative;
+padding: .75rem 1.25rem;
+margin-bottom: 1rem;
+border: 1px solid transparent;
+border-radius: .25rem;
+list-style: none;
+}
+#messages .success{
+
+}
+#messages .success li{
+color: #155724;
+background-color: #d4edda;
+border-color: #c3e6cb;
+}
+#messages .error li,#messages .danger li{
+color: #721c24;
+background-color: #f8d7da;
+border-color: #f5c6cb;
+}
+.switch {
+position: relative;
+display: inline-block;
+width: 55px;
+height: 25px;
+}
+
+.switch input {display:none;}
+
+.switch .slider {
+position: absolute;
+cursor: pointer;
+top: 0;
+left: 0;
+right: 0;
+bottom: 0;
+background-color: #dc3545;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.switch .slider:before {
+position: absolute;
+content: "";
+height: 20px;
+width: 20px;
+left: 4px;
+bottom: 3px;
+background-color: white;
+-webkit-transition: .4s;
+transition: .4s;
+}
+
+.switch input:checked + .slider {
+background-color: #28A745;
+}
+
+.switch input:focus + .slider {
+box-shadow: 0 0 1px #2196F3;
+}
+
+.switch input:checked + .slider:before {
+-webkit-transform: translateX(26px);
+-ms-transform: translateX(26px);
+transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.switch .slider.round {
+border-radius: 34px;
+}
+
+.switch .slider.round:before {
+border-radius: 50%;
+}
+.text-center{
+text-align: center;
+}
+.modal-body .table-sm td, .table-sm th {
+font-size: 13px;
+}
+table.dataTable td, table.dataTable th {
+/* max-width: 50px; */
+}
+#client_field{
+    max-height: 100px;
+    overflow: auto;
+}
+#client_field .list-group-item {
+    padding: .2rem .8rem;
+    cursor: pointer;
+}
+#client_field .list-group-item:hover{
+    background-color: #34a293;
+    color: #fff
+}
+#nSaleB{
+    background-color: #33a396;
+    color: #FFF;
+}
+#nSaleB label {
+    display: block;
+    margin-bottom: 0rem;
+    font-weight: 600;
+}
+.todayDiv{
+    border: 1px solid #ddd;
+    text-align: center;
+    padding: 5px;
+}
+.bigFig{
+    font-size: xx-large;
+}
+.smallFig{
+    font-size: small;
+}

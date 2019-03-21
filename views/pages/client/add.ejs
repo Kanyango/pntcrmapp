@@ -1,0 +1,62 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Add Client
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form action="/client/add" method="post" role="form" autocomplete="off">
+    <div class="row">
+    <div class="col-6 form-group">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="first_name">First Name </label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <input name="first_name" class="form-control" placeholder="First Name">
+      </div>
+    </div>
+    <div class="col-6 form-group ">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="last_name">Last Name</label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <input class="form-control" name="last_name" id="last_name" placeholder="Last Name">
+      </div>
+    </div>
+    <div class="col-6 form-group ">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="phone">Phone </label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <input name='phone' class = 'form-control' placeholder='Phone Number'>
+      </div>
+    </div>
+    <div class="col-6 form-group ">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="email">Email </label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+         <input type="email" name="email" class="form-control" placeholder="Email">
+      </div>
+    </div>
+    <div class="col-md-12">
+    	<hr/>
+    </div>
+		<div class="col-6 form-group ">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="location">Location </label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+				<textarea name="location" class="form-control" ></textarea>
+      </div>
+    </div>
+		<div class="col-6 form-group ">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="company">Company </label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+				<textarea name="company" class="form-control" ></textarea>
+      </div>
+    </div>
+    <div class="col-12">
+      <div class="form-group">
+        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<% include ../../partials/footer %>

@@ -1,0 +1,7 @@
+<%if(client.length > 0){ %>
+<% for(var s of client){ %>
+  <li class="list-group-item" onclick="client_data('<%= s.id %>')"><%= s.first_name %> <%= s.last_name %> | <%= s.phone %></li>
+<% }  %>
+<% } else { %>
+  <li class="list-group-item">No Data , <button class="btn btn-dander" type="button" data-toggle="modal" data-target="#addC-Modal">Add</button></li>
+<% } %>

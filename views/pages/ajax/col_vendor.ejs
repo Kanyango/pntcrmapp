@@ -1,0 +1,38 @@
+<table class="table table-bordered table-striped table-hover table-heading table-datatable" id="datatable-2">
+  <thead>
+    <tr>
+      <th></th>
+      <th>Product</th>
+      <th>Vendor</th>
+      <th>Brand</th>
+      <th>Price</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% for(var pven of pvendor){ %>
+    <% for(var product of products){
+      if(pven.products == product.id){ %>
+    <tr id="tr_<%= product.id %>">
+      <td>
+        <div class="checkbox">
+        <label>
+          <input type="checkbox" name="prod[]" value="<%= product.id %>" id="<%= product.title %>" onclick="addcoll(this)">
+          <i class="fa fa-square-o small"></i>
+        </label>
+      </div></td>
+      <td><%= product.title %></td>
+      <td>
+          <%= vendor.name %>
+      </td>
+      <td>
+        <% for(var bra of brand){
+          if(product.brand == bra.id){ %>
+            <%= bra.title %>
+          <% }
+        }  %>
+      </td>
+      <td><%= product.price %></td>
+    </tr>
+    <% } } } %>
+  </tbody>
+</table>

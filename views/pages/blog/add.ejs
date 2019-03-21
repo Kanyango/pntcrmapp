@@ -1,0 +1,77 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Add Blog
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form action="/blog/add" method="post" role="form" autocomplete="off">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="title">Title </label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <input name="title" class="form-control" placeholder="Blog Title">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="category">Category </label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <select name="category" class="form-control" required>
+              <option value="">Choose Category</option>
+              <option value="review">Review</option>
+              <option value="comparison">Comparison</option>
+              <option value="news">News</option>
+              <option value="experience">Experience</option>
+              <option value="how-to">How To</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group ">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="short-content">Short Content</label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <textarea class="form-control tinymce" name="short_content" id="short-content"></textarea>
+          </div>
+        </div>
+      </div>
+			<div class="col-6">
+        <div class="form-group">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="seo-title">Seo Title </label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <input name="seo-title" class="form-control" placeholder="SEO Title">
+          </div>
+        </div>
+				<div class="form-group ">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="keyword">Seo Keywords</label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <textarea class="form-control tinymce" name="keyword" id="keyword-content"></textarea>
+          </div>
+        </div>
+        <div class="form-group ">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="description">Seo Description</label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <textarea class="form-control tinymce" name="description" id="description"></textarea>
+          </div>
+        </div>
+      </div>
+    <div class="col-6 form-group ">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="full-content">Full Content</label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <textarea class="form-control tinymce" name="full_content" id="full-content"></textarea>
+      </div>
+    </div>
+    <hr/>
+    <div class="col-12">
+      <div class="form-group">
+        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<% include ../../partials/footer %>

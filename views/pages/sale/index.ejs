@@ -1,0 +1,485 @@
+<% include ../../partials/header %>
+<%
+var monthNames = [
+    "Jan", "Feb", "Mar",
+    "Apr", "May", "Jun", "Jul",
+    "Aug", "Sep", "Oct",
+    "Nov", "Dec"
+    ];
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+		year = d.getFullYear(),
+		hour = d.getHours(),
+		minute = d.getMinutes();
+
+    if (month.length < 2) month = '0' + month;
+    if (day.length < 2) day = '0' + day;
+
+	return [day+'-'+monthNames[d.getMonth()]+'-'+year,year+'-'+month+'-'+day+'  '+ hour+':'+minute];
+	//return day+'-'+month+'-'+year+'  '+ hour+':'+minute;
+    //return [day, month, year].join('-') Hour+':'+Minute;
+}
+%>
+<div class="page-header">
+	<div class="page-title">
+		Sales
+	</div>
+	<div class="page-actions">
+		<a href="/sale/add/" class="btn btn-success">New Sale</a>
+	</div>
+</div>
+<div class="page-content">
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="Web-tab" data-toggle="tab" href="#Web" role="tab" aria-controls="Web" aria-selected="true">Web <span class="badge badge-light"></span></a>
+  </li>
+	<li class="nav-item">
+		<% var count = 0; for(var sal of sale){
+		if(sal.status == 'Open'){
+			count++;
+		}}%>
+    <a class="nav-link" id="Open-tab" data-toggle="tab" href="#Open" role="tab" aria-controls="Open" aria-selected="true">Open <span class="badge badge-light"><%= count %></span></a>
+  </li>
+  <li class="nav-item">
+		<% var count = 0; for(var sal of sale){
+		if(sal.status == 'Shipped'){
+			count++;
+		}}%>
+    <a class="nav-link" id="Shipped-tab" data-toggle="tab" href="#Shipped" role="tab" aria-controls="Shipped" aria-selected="false">Shipped <span class="badge badge-light"><%= count %></span></a>
+  </li>
+	<li class="nav-item">
+		<% var count = 0; for(var sal of sale){
+		if(sal.status == 'Pending'){
+			count++;
+		}}%>
+    <a class="nav-link" id="Pending-tab" data-toggle="tab" href="#Pending" role="tab" aria-controls="Pending" aria-selected="false">Pending <span class="badge badge-light"><%= count %></span></a>
+  </li>
+	<li class="nav-item">
+		<% var count = 0; for(var sal of sale){
+		if(sal.status == 'Closed'){
+			count++;
+		}}%>
+    <a class="nav-link" id="Closed-tab" data-toggle="tab" href="#Closed" role="tab" aria-controls="Closed" aria-selected="false">Closed <span class="badge badge-light"><%= count %></span></a>
+  </li>
+  <li class="nav-item">
+		<% var count = 0; for(var sal of sale){
+		if(sal.status == 'Cancelled'){
+			count++;
+		}}%>
+    <a class="nav-link" id="Cancelled-tab" data-toggle="tab" href="#Cancelled" role="tab" aria-controls="Cancelled" aria-selected="false">Cancelled <span class="badge badge-light"><%= count %></span></a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="Web" role="tabpanel" aria-labelledby="Web-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+	        		<th style="min-width: 100px;">Date</th>
+					<th>Client</th>
+					<th>Location</th>
+					<th>Total</th>
+					<th>Status</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var sal of saleWeb ){ %>
+				<tr>
+					<td data-order="<%= formatDate(sal.created_at)[1] %>"><%= formatDate(sal.created_at)[0] %></td>
+					<td><%= sal.first_name %> <%= sal.last_name %></td>
+					<td><%= sal.delivery_location %></td>
+					<td>
+	          <% var total=0; for(var c of sal.cart ){
+	            total=total+c.price
+	           } %>
+	           Ksh. <%= total %>
+	          </td>
+					<td><%= sal.status %></td>
+					<td><a href="/sale/sale_web_view/<%= sal.id %>">view</a></td>
+				</tr>
+				<% } %>
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="Open" role="tabpanel" aria-labelledby="Open-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th style="min-width: 100px;">Date</th>
+					<th>Client</th>
+					<th>Status</th>
+					<th>Amount</th>
+					<th>Products</th>
+					<th>Paid Amount</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var sal of sale){
+					if(sal.status == 'Open'){%>
+				<tr>
+						<td data-order="<%= formatDate(sal.created_at)[1] %>"><%= formatDate(sal.created_at)[0] %></td>	
+						<td><% if(sal.client){ %><%= sal.client.first_name %> <%= sal.client.last_name %><% } %></td>
+						<td><%= sal.status %></td>
+						<td><%
+						var GTotal=0;
+						var total=0;
+						var price=0;
+						var quantity=0;
+						for(var sprod of saleProd ){
+							if(sprod.sale == sal.id){
+								price=sprod.price;
+								quantity= sprod.qty;
+								total=price *quantity;
+								GTotal= GTotal + total;
+						 } } %>
+						 <%= GTotal %></td>
+						 <td>
+							 <table>
+							 <%
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									for(var c of colProd){
+										if(c.id == sprod.product ){
+											for(var p of products){
+												if(p.id == c.product){%>
+													<tr>
+														<td><%= p.title %></td>
+													</tr>
+							<% } } } } } } %>
+							</table>
+						 </td>
+						 <td>
+							 <%
+							 var fAmount=0;
+							 var amount = 0;
+							 var balance =0
+							 for(var pay of payment ){
+								 if(pay.sale == sal.id){
+									amount=pay.amount;
+									fAmount = amount+ fAmount;
+								} } %>
+							 <%= fAmount %>
+						 </td>
+						 <!-- <td><%
+							var quantity=0;
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									quantity= quantity+1;
+							 } } %>
+							 <%= quantity %>
+						 </td> -->
+						 <td><a href="/sale/view/<%= sal.id %>">view</a></td>
+				</tr>
+				<% } } %>
+			</tbody>
+		</table>
+  </div>
+	<div class="tab-pane fade" id="Shipped" role="tabpanel" aria-labelledby="Shipped-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th style="min-width: 100px;">Date</th>
+					<th>Client</th>
+					<th>Status</th>
+					<th>Amount</th>
+					<th>Products</th>
+					<th>Paid Amount</th>
+					<!-- <th>Products</th> -->
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var sal of sale){
+					if(sal.status == 'Shipped'){%>
+				<tr>
+						<td data-order="<%= formatDate(sal.created_at)[1] %>"><%= formatDate(sal.created_at)[0] %></td>
+						<td><%= sal.client.first_name %> <%= sal.client.last_name %></td>
+						<td><%= sal.status %></td>
+						<td><%
+						var GTotal=0;
+						var total=0;
+						var price=0;
+						var quantity=0;
+						for(var sprod of saleProd ){
+							if(sprod.sale == sal.id){
+								price=sprod.price;
+								quantity= sprod.qty;
+								total=price *quantity;
+								GTotal= GTotal + total;
+						 } } %>
+						 <%= GTotal %></td>
+						 <td>
+							 <table>
+							 <%
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									for(var c of colProd){
+										if(c.id == sprod.product ){
+											for(var p of products){
+												if(p.id == c.product){%>
+													<tr>
+														<td><%= p.title %></td>
+													</tr>
+							<% } } } } } } %>
+							</table>
+						 </td>
+						 <td>
+							 <%
+							 var fAmount=0;
+							 var amount = 0;
+							 var balance =0
+							 for(var pay of payment ){
+								 if(pay.sale == sal.id){
+									amount=pay.amount;
+									fAmount = amount+ fAmount;
+								} } %>
+							 <%= fAmount %>
+						 </td>
+						 <!-- <td><%
+							var quantity=0;
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									quantity= quantity+1;
+							 } } %>
+							 <%= quantity %>
+						 </td> -->
+						 <td><a href="/sale/view/<%= sal.id %>">view</a></td>
+				</tr>
+				<% } } %>
+			</tbody>
+		</table>
+  </div>
+  <div class="tab-pane fade" id="Pending" role="tabpanel" aria-labelledby="Pending-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th style="min-width: 100px;">Date</th>
+					<th>Client</th>
+					<th>Status</th>
+					<th>Amount</th>
+					<th>Products</th>
+					<th>Paid Amount</th>
+					<!-- <th>Products</th> -->
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var sal of sale){
+					if(sal.status == 'Pending'){ %>
+				<tr>
+						<td data-order="<%= formatDate(sal.created_at)[1] %>"><%= formatDate(sal.created_at)[0] %></td>
+						<td><%= sal.client.first_name %> <%= sal.client.last_name %></td>
+						<td><%= sal.status %></td>
+						<td><%
+						var GTotal=0;
+						var total=0;
+						var price=0;
+						var quantity=0;
+						for(var sprod of saleProd ){
+							if(sprod.sale == sal.id){
+								price=sprod.price;
+								quantity= sprod.qty;
+								total=price *quantity;
+								GTotal= GTotal + total;
+						 } } %>
+						 <%= GTotal %></td>
+						 <td>
+							 <table>
+							 <%
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									for(var c of colProd){
+										if(c.id == sprod.product ){
+											for(var p of products){
+												if(p.id == c.product){%>
+													<tr>
+														<td><%= p.title %></td>
+													</tr>
+							<% } } } } } } %>
+							</table>
+						 </td>
+						 <td>
+							 <%
+							 var fAmount=0;
+							 var amount = 0;
+							 var balance =0
+							 for(var pay of payment ){
+								 if(pay.sale == sal.id){
+									amount=pay.amount;
+									fAmount = amount+ fAmount;
+								} } %>
+							 <%= fAmount %>
+						 </td>
+						 <!-- <td><%
+							var quantity=0;
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									quantity= quantity+1;
+							 } } %>
+							 <%= quantity %>
+						 </td> -->
+						 <td><a href="/sale/view/<%= sal.id %>">view</a></td>
+				</tr>
+				<% } } %>
+
+			</tbody>
+		</table>
+  </div>
+  <div class="tab-pane fade" id="Closed" role="tabpanel" aria-labelledby="Closed-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th style="min-width: 100px;">Date</th>
+					<th>Client</th>
+					<th>Status</th>
+					<th>Amount</th>
+					<th>Products</th>
+					<th>Paid Amount</th>
+					<!-- <th>Products</th> -->
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var sal of sale){
+					if(sal.status == 'Closed'){ %>
+				<tr>
+						<td data-order="<%= formatDate(sal.created_at)[1] %>"><%= formatDate(sal.created_at)[0] %></td>
+						<td><%= sal.client.first_name %> <%= sal.client.last_name %></td>
+						<td><%= sal.status %></td>
+						<td><%
+						var GTotal=0;
+						var total=0;
+						var price=0;
+						var quantity=0;
+						for(var sprod of saleProd ){
+							if(sprod.sale == sal.id){
+								price=sprod.price;
+								quantity= sprod.qty;
+								total=price *quantity;
+								GTotal= GTotal + total;
+						 } } %>
+						 <%= GTotal %></td>
+						 <td>
+							 <table>
+							 <%
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									for(var c of colProd){
+										if(c.id == sprod.product ){
+											for(var p of products){
+												if(p.id == c.product){%>
+													<tr>
+														<td><%= p.title %></td>
+													</tr>
+							<% } } } } } } %>
+							</table>
+						 </td>
+						 <td>
+							 <%
+							 var fAmount=0;
+							 var amount = 0;
+							 var balance =0
+							 for(var pay of payment ){
+								 if(pay.sale == sal.id){
+									amount=pay.amount;
+									fAmount = amount+ fAmount;
+								} } %>
+							 <%= fAmount %>
+						 </td>
+						 <!-- <td><%
+							var quantity=0;
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									quantity= quantity+1;
+							 } } %>
+							 <%= quantity %>
+						 </td> -->
+						 <td><a href="/sale/view/<%= sal.id %>">view</a></td>
+				</tr>
+				<% } } %>
+
+			</tbody>
+		</table>
+  </div>
+	<div class="tab-pane fade" id="Cancelled" role="tabpanel" aria-labelledby="Cancelled-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th style="min-width: 100px;">Date</th>
+					<th>Client</th>
+					<th>Status</th>
+					<th>Amount</th>
+					<th>Products</th>
+					<th>Paid Amount</th>
+					<!-- <th>Products</th> -->
+					<th>Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var sal of sale){
+					if(sal.status == 'Cancelled'){ %>
+				<tr>
+						<td data-order="<%= formatDate(sal.created_at)[1] %>"><%= formatDate(sal.created_at)[0] %></td>
+						<td><%= sal.client.first_name %> <%= sal.client.last_name %></td>
+						<td><%= sal.status %></td>
+						<td><%
+						var GTotal=0;
+						var total=0;
+						var price=0;
+						var quantity=0;
+						for(var sprod of saleProd ){
+							if(sprod.sale == sal.id){
+								price=sprod.price;
+								quantity= sprod.qty;
+								total=price *quantity;
+								GTotal= GTotal + total;
+						 } } %>
+						 <%= GTotal %></td>
+						 <td>
+							 <table>
+							 <%
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									for(var c of colProd){
+										if(c.id == sprod.product ){
+											for(var p of products){
+												if(p.id == c.product){%>
+													<tr>
+														<td><%= p.title %></td>
+													</tr>
+							<% } } } } } } %>
+							</table>
+						 </td>
+						 <td>
+							 <%
+							 var fAmount=0;
+							 var amount = 0;
+							 var balance =0
+							 for(var pay of payment ){
+								 if(pay.sale == sal.id){
+									amount=pay.amount;
+									fAmount = amount+ fAmount;
+								} } %>
+							 <%= fAmount %>
+						 </td>
+						 <!-- <td><%
+							var quantity=0;
+							for(var sprod of saleProd ){
+								if(sprod.sale == sal.id){
+									quantity= quantity+1;
+							 } } %>
+							 <%= quantity %>
+						 </td> -->
+						 <td><a href="/sale/view/<%= sal.id %>">view</a></td>
+				</tr>
+				<% } } %>
+			</tbody>
+		</table>
+	</div>
+</div>
+
+</div>
+<% include ../../partials/footer %>

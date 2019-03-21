@@ -1,0 +1,32 @@
+<form action="/settings/get_location/<%= loc.id %>" method="post" autocomplete="off">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-12">Region</label>
+        <div class="col-md-12">
+          <select class="custom-select" name="region">
+            <option selected>Choose Region</option>
+            <option value="central" <% if(loc.region=='central'){%>selected<%} %>>Central</option>
+            <option value="coast" <% if(loc.region=='coast'){%>selected<%} %>>Coast</option>
+            <option value="eastern" <% if(loc.region=='eastern'){%>selected<%} %>>Eastern</option>
+            <option value="nairobi" <% if(loc.region=='nairobi'){%>selected<%} %>>Nairobi</option>
+            <option value="north-eastern" <% if(loc.region=='north-eastern'){%>selected<%} %>>North Eastern</option>
+            <option value="nyanza" <% if(loc.region=='nyanza'){%>selected<%} %>>Nyanza</option>
+            <option value="rift-valley" <% if(loc.region=='rift-valley'){%>selected<%} %>>Rift Valley</option>
+            <option value="western" <% if(loc.region=='western'){%>selected<%} %>>Western</option>
+          </select>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-12">Location</label>
+        <div class="col-md-12">
+          <input type="text" class="form-control" value="<%= loc.location %>" name="location">
+        </div>
+      </div>
+    </div>
+    <div class="form-actions padding-20">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>

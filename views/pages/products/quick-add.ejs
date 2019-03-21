@@ -1,0 +1,117 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    New Product
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form action="/products/quick-add" method="post" role="form" class="row" autocomplete="off">
+		<div class="col-md-4">
+			<div class="form-group has-feedback">
+				<label class="control-label col-md-12 col-sm-12 col-xs-12" for="title">Attribute </label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<select class="selectpicker" data-live-search="true" name="attrib_type" required>
+						<option value="">Select Attribute</option>
+						<% for(var i = 0; i < attrib.length; i++){ %>
+							<option value="<%= attrib[i].id %>"><%= attrib[i].title %></option>
+						<% } %>
+					</select>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label col-md-12 col-sm-12 col-xs-12" for="brand">Brand</label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<select class="selectpicker" data-live-search="true" name="brand" id="brand" required>
+						<option value="">Select Brand</option>
+						<% for(var b of brand){ %>
+							<option value="<%= b.id %>"><%= b.title %></option>
+						<% } %>
+					</select>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<div class="form-group has-feedback">
+				<label class="control-label col-md-12 col-sm-12 col-xs-12" for="title">Title </label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<input name="title" class="form-control" placeholder="Title" required>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label col-md-12 col-sm-12 col-xs-12" for="price">Price </label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<input name='price' class = 'form-control' placeholder='Price' required>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+				<label class="control-label col-md-12 col-sm-12 col-xs-12" for="reseller_price">Reseller Price </label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<input name='reseller_price' class = 'form-control' placeholder='Reseller Price' required>
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label col-md-12 col-sm-12 col-xs-12" for="special_price">Special Price </label>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					<input name='special_price' class = 'form-control' placeholder='Special Price' value="0">
+				</div>
+			</div>
+			<div class="form-group has-feedback">
+				<label class="control-label col-md-3 col-sm-3 col-xs-12" for="cost">Cost </label>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					 <input type="text" name="cost" class="form-control" placeholder="Cost" required>
+				</div>
+			</div>
+		</div>
+		<div class="col-md-4">
+			<ul id="tree1">
+				<%
+				var cat=[];
+				for(var cat1 of category){
+					if(cat1.parent==0){
+						 cat.push(cat1);
+					}
+				} %>
+				<% for(var cat1 of cat){ %>
+				<li>
+					<%= cat1.title %><input type="checkbox" name="category" value="<%= cat1.id %>">
+					 <ul>
+						 <% for(var cat2 of category){
+							 if(cat2.parent==cat1.id){ %>
+							 <li>
+								<%= cat2.title %><input type="checkbox" name="category" value="<%= cat2.id %>">
+								<ul>
+									<% for(var cat3 of category){
+										if(cat3.parent==cat2.id){ %>
+											<li>
+												<%= cat3.title %><input type="checkbox" name="category" value="<%= cat3.id %>">
+											</li>
+										<% }
+									} %>
+								</ul>
+							 </li>
+						 <% } } %>
+					</ul>
+				</li>
+				<% } %>
+			</ul>
+		</div>
+
+
+
+
+		<div class="col-md-6">
+
+		</div>
+		<div class="col-md-12 col-sm-12 col-xs-12">
+			<div class="form-group">
+	      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+	        <button type="submit" class="btn btn-success">Submit</button>
+	      </div>
+	    </div>
+		</div>
+  </form>
+</div>
+<% include ../../partials/footer %>

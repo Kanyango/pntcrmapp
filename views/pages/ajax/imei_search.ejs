@@ -1,0 +1,7 @@
+<%if(imei.length > 0){ %>
+<% for(var s of imei){ %>
+        <p onclick="imei_repair('<%= s.id %>')"><%= s.imei %> | <%= s.status %></p>
+<% }  %>
+<% } else{ %>
+  No Data
+<% } %>

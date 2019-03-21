@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>CRM</title>
+		<meta name="description" content="description">
+		<meta name="author" content="De&Em">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link href="/assets/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+		<link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
+		<link href='http://fonts.googleapis.com/css?family=Righteous' rel='stylesheet' type='text/css'>
+		<link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/bs4/jq-3.2.1/dt-1.10.16/af-2.2.2/b-1.4.2/r-2.2.0/datatables.min.css"/>
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.6.3/css/bootstrap-select.min.css" />
+		<link rel="stylesheet" href="/assets/css/bootstrap-multiselect.css" type="text/css">
+		<link rel="stylesheet" href="/assets/css/bootstrap-datetimepicker.min.css" type="text/css">
+		<link href="/assets/css/printPDF.css" rel="stylesheet">
+		<link href="/assets/css/style.css" rel="stylesheet">
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+				<script src="http://getbootstrap.com/docs-assets/js/html5shiv.js"></script>
+				<script src="http://getbootstrap.com/docs-assets/js/respond.min.js"></script>
+		<![endif]-->
+
+	</head>
+<body>
+	<header>
+		<div class="row">
+			<div id="top-header" class="col-md-12">
+				<nav class="navbar navbar-expand-lg navbar-light bg-light">
+				  <div class="navbar-brand"><a href="/">
+						<img src="/assets/img/logo.png" alt="logo" class="logo">
+					</a>
+					</div>
+					<div class="pull-right">
+						<div class="dropdown">
+							<button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+								User
+							</button>
+							<div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+								<a class="dropdown-item" href="/user/logout">Logout</a>
+							</div>
+						</div>
+					</div>
+				</nav>
+			</div>
+			<div id="menu" class="col-md-12">
+				<ul class="nav justify-content-center">
+				  <!-- <li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_clients" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Clients
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_clients">
+						    <a class="dropdown-item" href="/client/">All</a>
+						    <a class="dropdown-item" href="/client/add">Add</a>
+						  </div>
+						</div>
+				  </li> -->
+					<li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_products" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Products
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_products">
+						    <a class="dropdown-item" href="/products/">All</a>
+						    <a class="dropdown-item" href="/products/add">Add</a>
+								<a class="dropdown-item" href="/products/quick-add">Quick Add</a>
+								<a class="dropdown-item" href="/blog">Blogs</a>
+								<a class="dropdown-item" href="/products/deleted">Deleted</a>
+						  </div>
+						</div>
+				  </li>
+					<li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_sale" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Sale
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_sale">
+						    <a class="dropdown-item" href="/sale/">All</a>
+						    <a class="dropdown-item" href="/sale/add">Add</a>
+								<a class="dropdown-item" href="/sale/collected_products">Collected Products</a>
+								<a class="dropdown-item" href="/sale/imei">Imei's</a>
+						  </div>
+						</div>
+					</li>
+					<li class="nav-item">
+						<a class="btn btn-secondary" href="/cash" role="button">
+							Cash
+						</a>
+						</li>
+					<li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_inquiry" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Inquiry
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_inquiry">
+						    <a class="dropdown-item" href="/inquiry/">All</a>
+						    <a class="dropdown-item" href="/inquiry/add">Add</a>
+						  </div>
+						</div>
+				  </li>
+					<li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_repair" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Repair
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_repair">
+						    <a class="dropdown-item" href="/repair/">All</a>
+						    <a class="dropdown-item" href="/repair/add">Add</a>
+						  </div>
+						</div>
+				  </li>
+					<!-- <li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_vendor" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Vendor
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_vendor">
+						    <a class="dropdown-item" href="/vendor/">All</a>
+						    <a class="dropdown-item" href="/vendor/add">Add</a>
+								<a class="dropdown-item" href="/vendor/payments">Payments</a>
+						  </div>
+						</div>
+				  </li> -->
+					<li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Users
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_user">
+									<a class="dropdown-item" href="/client/">Clients</a>
+								<a class="dropdown-item" href="/user/">Staffs</a>
+								<a class="dropdown-item" href="/vendor/">Vendors</a>
+						  </div>
+						</div>
+					</li>
+					<!-- <li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_user" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    User
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_user">
+						    <a class="dropdown-item" href="/user/">All</a>
+						    <a class="dropdown-item" href="/user/add">Add</a>
+						  </div>
+						</div>
+				  </li> -->
+					<li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_settings" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Settings
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_settings">
+						    <a class="dropdown-item" href="/settings/">Settings</a>
+						    <a class="dropdown-item" href="/expenses/">Expenses</a>
+						  </div>
+						</div>
+				  </li>
+					<!-- <li class="nav-item">
+						<div class="dropdown">
+						  <a class="btn btn-secondary dropdown-toggle" href="#" role="button" id="d_IE" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+						    Import/ Export
+						  </a>
+						  <div class="dropdown-menu" aria-labelledby="d_IE">
+						    <a class="dropdown-item" href="/import/">Import</a>
+						  </div>
+						</div>
+				  </li> -->
+				</ul>
+			</div>
+		</div>
+	</header>
+<!--Start Container-->
+<div id="main" class="container-fluid">
+	<div class="row">
+
+		<!--Start Content-->
+		<div id="content" class="col-xs-12 col-sm-12">
+			<%- messages() %>
+
+<!-- Push notifications  -->

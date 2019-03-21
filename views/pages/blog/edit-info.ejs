@@ -1,0 +1,94 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Edit Blog
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form action="/blog/edit-info/<%= blog.id %>" method="post" role="form" autocomplete="off">
+    <div class="row">
+      <div class="col-6">
+        <div class="form-group">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="title">Title </label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <input name="title" class="form-control" placeholder="Blog Title" value="<%= blog.title %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="category">Category </label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <select name="category" class="form-control" required>
+              <option value="">Choose Category</option>
+              <option value="review" <% if(blog.category == 'review'){%> selected <%}%>>Review</option>
+              <option value="comparison" <% if(blog.category == 'comparison'){%> selected <%}%>>Comparison</option>
+              <option value="news" <% if(blog.category == 'news'){%> selected <%}%>>News</option>
+              <option value="experience" <% if(blog.category == 'experience'){%> selected <%}%>>Experience</option>
+            </select>
+          </div>
+        </div>
+        <div class="form-group">
+            <label class="col-md-12 col-sm-12 col-xs-12" for="main_image">Main Image </label>
+            <div class="col-md-12 col-sm-12 col-xs-12">
+              <input name="main_image" class="form-control" placeholder="main_image" value="<%= blog.main_image %>">
+            </div>
+          </div>
+          <div class="form-group">
+              <label class="col-md-12 col-sm-12 col-xs-12" for="thumb_image">Thumb Image </label>
+              <div class="col-md-12 col-sm-12 col-xs-12">
+                <input name="thumb_image" class="form-control" placeholder="thumb_image" value="<%= blog.thumb_image %>">
+              </div>
+            </div>
+        <div class="form-group ">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="short-content">Short Content</label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <textarea class="form-control tinymce" name="short_content" id="short-content"><%= blog.short_content %></textarea>
+          </div>
+        </div>
+      </div>
+			<div class="col-6">
+				<div class="form-group ">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="keyword">Seo Url</label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <input name="url" class="form-control" placeholder="Blog Url" value="<%= blog.url %>">
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="seo-title">Seo Title </label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <input name="seo-title" class="form-control" placeholder="Seo Title" value="<%= blog.seo.title %>">
+          </div>
+        </div>
+        <div class="form-group ">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="keyword">Seo Keywords</label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <textarea class="form-control" name="keyword" id="keyword-content"><%= blog.seo.keywords %></textarea>
+          </div>
+        </div>
+        <div class="form-group ">
+          <label class="col-md-12 col-sm-12 col-xs-12" for="description">Seo Description</label>
+          <div class="col-md-12 col-sm-12 col-xs-12">
+            <textarea class="form-control" name="description" id="description"><%= blog.seo.description %></textarea>
+          </div>
+        </div>
+      </div>
+    <div class="col-6 form-group ">
+      <label class="col-md-12 col-sm-12 col-xs-12" for="full-content">Full Content</label>
+      <div class="col-md-12 col-sm-12 col-xs-12">
+        <textarea class="form-control tinymce" name="full_content" id="full-content"><%= blog.full_content %></textarea>
+      </div>
+    </div>
+    <hr/>
+    <div class="col-12">
+      <div class="form-group">
+        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+          <button type="submit" class="btn btn-success">Submit</button>
+        </div>
+      </div>
+    </div>
+  </div>
+  </form>
+</div>
+<% include ../../partials/footer %>

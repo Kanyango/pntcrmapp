@@ -1,0 +1,87 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Products Deleted
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+	<table class="table table-striped table-hover table-sm data-tables">
+		<thead class="thead-dark">
+			<tr>
+        <th scope="col">Title</th>
+        <th scope="col">Price</th>
+				<th scope="col">Reseller Price</th>
+				<th scope="col">Special Price</th>
+        <th scope="col">Cost</th>
+        <th scope="col">Store</th>
+				<th scope="col">Web</th>
+        <th scope="col" class="actions">Actions</th>
+			</tr>
+		</thead>
+		<tbody>
+      <% for(var product of products){ %>
+      <tr>
+          <td><%= product.title %></td>
+          <td><%= product.price %></td>
+					<td><%= product.reseller_price %></td>
+					<td><%= product.special_price %></td>
+          <td><%= product.cost %></td>
+          <td>
+						<label class="switch" onclick="makeVisible_1('<%= product.id %>')">
+						  <input type="checkbox" <% if(product.is_active==1){ %>checked <% } %>>
+						  <span class="slider round"></span>
+						</label>
+						<input type="hidden" name="product-status-<%= product.id %>" value="<% if(product.is_active==0){ %> 1 <% } else{ %> 0 <% } %>">
+					</td>
+					<td>
+						<label class="switch" onclick="makeVisible_2('<%= product.id %>')">
+						  <input type="checkbox" <% if(product.is_web_active==1){ %>checked <% } %>>
+						  <span class="slider round"></span>
+						</label>
+						<input type="hidden" name="product-status2-<%= product.id %>" value="<% if(product.is_web_active==0){ %> 1 <% } else{ %> 0 <% } %>">
+					</td>
+          <td class="actions">
+						<div class="btn-group btn-group-sm" role="group" aria-label="Basic example">
+						  <a href="/products/view/<%= product.id %>" class="btn btn-success">View</a>
+						</div>
+          </td>
+      </tr>
+      <% } %>
+		</tbody>
+	</table>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="QuickEdit" tabindex="-1" role="dialog" aria-labelledby="QuickEdit" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Quick Edit</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="editBody" class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="QuickVendor" tabindex="-1" role="dialog" aria-labelledby="QuickVendor" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Vendor Cost</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div id="vendorBody" class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

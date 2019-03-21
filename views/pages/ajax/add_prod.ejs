@@ -1,0 +1,20 @@
+<tr id="prodCount<%= col.id %>">
+  <%
+    for(var prod of products){
+      if(prod.id == col.product){ %>
+        <td>
+          <%= prod.title%>
+          <input type='hidden' name='prod[]' value="<%= col.id %>">
+        </td>
+        <td>
+          Ksh. <%= prod.price %></td>
+          <input type='hidden' name='price[]' value="<%= prod.price %>">
+          <input type='hidden' name='cost[]' value="<%= prod.cost %>">
+        <td>
+          <button type='button' class='btn btn-danger btn-app-sm btn-circle' onclick='removeprod("<%= col.id %>")'><i class='fa fa-times'></i></button>
+        </td>
+      <% }
+    }
+  %>
+
+</tr>

@@ -1,0 +1,190 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Repair
+	</div>
+	<div class="page-actions">
+		<a href="/repair/add" class="btn btn-danger">Add Repair</a>
+	</div>
+</div>
+<div class="page-content">
+	<ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+		<% var count = 0; for(var r of repairP){
+		if(r.status == 'in store'){
+			count++;
+		}}%>
+    <a class="nav-link active" id="inStore-tab" data-toggle="tab" href="#inStore" role="tab" aria-controls="inStore" aria-selected="true">in Store <span class="badge badge-light"><%= count %></span></a>
+  </li>
+  <li class="nav-item">
+		<% var count = 0; for(var r of repairP){
+		if(r.status == 'delivered_to_store'){
+			count++;
+		}}%>
+    <a class="nav-link" id="delivered_to_store-tab" data-toggle="tab" href="#delivered_to_store" role="tab" aria-controls="delivered_to_store" aria-selected="false">Delivered To Store <span class="badge badge-light"><%= count %></span></a>
+  </li>
+	<li class="nav-item">
+		<% var count = 0; for(var r of repairP){
+		if(r.status == 'picked_from_repair'){
+			count++;
+		}}%>
+    <a class="nav-link" id="picked_from_repair-tab" data-toggle="tab" href="#picked_from_repair" role="tab" aria-controls="picked_from_repair" aria-selected="false">Picked_From Repair <span class="badge badge-light"><%= count %></span></a>
+  </li>
+	<li class="nav-item">
+		<% var count = 0; for(var r of repairP){
+		if(r.status == 'client_picked'){
+			count++;
+		}}%>
+    <a class="nav-link" id="client_picked-tab" data-toggle="tab" href="#client_picked" role="tab" aria-controls="client_picked" aria-selected="false">Client Picked <span class="badge badge-light"><%= count %></span></a>
+  </li>
+</ul>
+<div class="tab-content" id="myTabContent">
+  <div class="tab-pane fade show active" id="inStore" role="tabpanel" aria-labelledby="inStore-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Date</th>
+					<th scope="col">Name</th>
+					<th scope="col">Product</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var r of repair){
+					date =  new Date(r.created_at);
+					for(var rp of repairP){
+						if(rp.repair == r.id && rp.status=='in store' ){%>
+				<tr>
+						<td><%= date.toDateString() %></td>
+						<td>
+							<% for(var c of client){
+								if(c.id == r.client){ %>
+							<%= c.first_name %> <%= c.last_name %>
+							<% } } %>
+						</td>
+						<td><%= rp.title %></td>
+						<td><%= rp.status %></td>
+						<td><a href="/repair/view/<%= r.id %>">View</a></td>
+				</tr>
+				<% } } } %>
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="delivered_to_store" role="tabpanel" aria-labelledby="delivered_to_store-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Date</th>
+					<th scope="col">Name</th>
+					<th scope="col">Product</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var r of repair){
+					date =  new Date(r.created_at);
+					for(var rp of repairP){
+						if(rp.repair == r.id && rp.status=='delivered_to_store' ){%>
+				<tr>
+						<td><%= date.toDateString() %></td>
+						<td>
+							<% for(var c of client){
+								if(c.id == r.client){ %>
+							<%= c.first_name %> <%= c.last_name %>
+							<% } } %>
+						</td>
+						<td><%= rp.title %></td>
+						<td><%= rp.status %></td>
+						<td><a href="/repair/view/<%= r.id %>">View</a></td>
+				</tr>
+				<% } } } %>
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="picked_from_repair" role="tabpanel" aria-labelledby="picked_from_repair-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Date</th>
+					<th scope="col">Name</th>
+					<th scope="col">Product</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var r of repair){
+					date =  new Date(r.created_at);
+					for(var rp of repairP){
+						if(rp.repair == r.id && rp.status=='picked_from_repair' ){%>
+				<tr>
+						<td><%= date.toDateString() %></td>
+						<td>
+							<% for(var c of client){
+								if(c.id == r.client){ %>
+							<%= c.first_name %> <%= c.last_name %>
+							<% } } %>
+						</td>
+						<td><%= rp.title %></td>
+						<td><%= rp.status %></td>
+						<td><a href="/repair/view/<%= r.id %>">View</a></td>
+				</tr>
+				<% } } } %>
+			</tbody>
+		</table>
+	</div>
+	<div class="tab-pane fade" id="client_picked" role="tabpanel" aria-labelledby="client_picked-tab">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+				<tr>
+					<th scope="col">Date</th>
+					<th scope="col">Name</th>
+					<th scope="col">Product</th>
+					<th scope="col">Status</th>
+					<th scope="col">Action</th>
+				</tr>
+			</thead>
+			<tbody>
+				<% for(var r of repair){
+					date =  new Date(r.created_at);
+					for(var rp of repairP){
+						if(rp.repair == r.id && rp.status=='client_picked' ){%>
+				<tr>
+						<td><%= date.toDateString() %></td>
+						<td>
+							<% for(var c of client){
+								if(c.id == r.client){ %>
+							<%= c.first_name %> <%= c.last_name %>
+							<% } } %>
+						</td>
+						<td><%= rp.title %></td>
+						<td><%= rp.status %></td>
+						<td><a href="/repair/view/<%= r.id %>">View</a></td>
+				</tr>
+				<% } } } %>
+			</tbody>
+		</table>
+	</div>
+</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="Products-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+        <form action="/import/products" method="POST" encType="multipart/form-data">
+            <input type="file" name="file" accept="*.csv" /><br/><br/>
+            <button type="submit">Upload Products</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

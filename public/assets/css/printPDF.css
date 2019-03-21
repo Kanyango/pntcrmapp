@@ -1,0 +1,208 @@
+.pdf-container{
+min-height: 700px;
+}
+.pdf-container .header{
+border-bottom: 1px solid #ddd;
+}
+.pdf-container .header .logo{
+width: 50%;
+float: left;
+}
+.pdf-container .header .info{
+width: 50%;
+float: left;
+text-align: right;
+}
+.pdf-container .header .title{
+text-transform: uppercase;
+font-weight: bold;
+line-height: 12px;
+font-size: 20px;
+color: #06a099;
+margin-bottom: 10px;
+width: 100%;
+text-align: center;
+}
+.pdf-container .header .info p{
+margin: 0px;
+font-size: 12px;
+}
+.pdf-container .body{
+width: 90%;
+margin: auto;
+}
+.pdf-container .body .body-top{
+margin-bottom: 20px;
+}
+.pdf-container .bill{
+float: left;
+width: 50%;
+}
+.pdf-container .bill .title{
+font-weight: 600;
+}
+.pdf-container .bill p{  
+margin-bottom: 0px;
+font-size: 12px;
+}
+#user{
+font-size: 12px;
+}
+#user .title{
+float: left;
+font-weight: 700;
+color: #30a099;
+}
+#user .name{
+float: left;
+}
+.body-top .invoice_info{
+float: left;
+width: 50%;
+text-align: right;
+}
+.body-top .invoice_info p{
+margin-bottom: 0px;
+font-weight: 600;
+}
+.body-top .invoice_info p span{
+font-weight: 300;
+font-size: 12px;
+}
+.table .thead-dark th {
+background-color: #fff;
+color: #30a098;
+border-color: #30a098;
+}
+#total-table{
+width: 100%;
+margin: 20px 0px;
+}
+#total-table tr{
+border: 1px solid #ddd;
+}
+#total-table tr td{
+padding-left: 5px;
+}
+#total-table tr th{
+padding-left: 5px;
+border-right: 1px solid #ddd
+}
+.footer{
+position: absolute;
+bottom: 0px;
+margin-top: 20px; 
+width: 90%;
+margin: auto;
+}
+.footer .terms h5{
+color: #30a099;
+}
+.footer .terms ul li{
+font-size: 12px;
+}
+@media print{
+    .pdf-container{
+        min-height: 700px;
+        }
+        .pdf-container .header{
+        border-bottom: 1px solid #ddd;
+        }
+        .pdf-container .header .logo{
+        width: 50%;
+        float: left;
+        }
+        .pdf-container .header .info{
+        width: 50%;
+        float: left;
+        text-align: right;
+        }
+        .pdf-container .header .title{
+        text-transform: uppercase;
+        font-weight: bold;
+        line-height: 12px;
+        font-size: 20px;
+        color: #06a099;
+        margin-bottom: 10px;
+        width: 100%;
+        text-align: center;
+        }
+        .pdf-container .header .info p{
+        margin: 0px;
+        font-size: 12px;
+        }
+        .pdf-container .body{
+        width: 90%;
+        margin: auto;
+        }
+        .pdf-container .body .body-top{
+        margin-bottom: 20px;
+        }
+        .pdf-container .bill{
+        float: left;
+        width: 50%;
+        }
+        .pdf-container .bill .title{
+        font-weight: 600;
+        }
+        .pdf-container .bill p{  
+        margin-bottom: 0px;
+        font-size: 12px;
+        }
+        #user{
+        font-size: 12px;
+        }
+        #user .title{
+        float: left;
+        font-weight: 700;
+        color: #30a099;
+        }
+        #user .name{
+        float: left;
+        }
+        .body-top .invoice_info{
+        float: left;
+        width: 50%;
+        text-align: right;
+        }
+        .body-top .invoice_info p{
+        margin-bottom: 0px;
+        font-weight: 600;
+        }
+        .body-top .invoice_info p span{
+        font-weight: 300;
+        font-size: 12px;
+        }
+        .table .thead-dark th {
+        background-color: #fff;
+        color: #30a098;
+        border-color: #30a098;
+        }
+        #total-table{
+        width: 100%;
+        margin: 20px 0px;
+        }
+        #total-table tr{
+        border: 1px solid #ddd;
+        }
+        #total-table tr td{
+        padding-left: 5px;
+        }
+        #total-table tr th{
+        padding-left: 5px;
+        border-right: 1px solid #ddd
+        }
+        .footer{
+        position: absolute;
+        bottom: 0px;
+        margin-top: 20px; 
+        width: 90%;
+        margin: auto;
+        }
+        .footer .terms h5{
+        color: #30a099;
+        }
+        .footer .terms ul li{
+        font-size: 12px;
+        }
+}

@@ -1,0 +1,52 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Sale Web Contact Seller
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="md-form">
+        <label for="first_name">Status</label>
+        <input type="text" id="first_name" name="first_name" value="<%= saleWeb.status %>" class="form-control" disabled>
+      </div>
+      <div class="md-form">
+        <label for="last_name">Name</label>
+        <input type="text" id="last_name" name="last_name" value="<%= saleWeb.name %>" class="form-control" disabled>
+      </div>
+      <div class="md-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="<%= saleWeb.email %>" class="form-control" disabled>
+      </div>
+      <div class="md-form">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" value="<%= saleWeb.phone %>" class="form-control" disabled>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-6 col-xs-12">
+      <h5>Message</h5>
+      <textarea class="form-control" disabled><%= saleWeb.message %></textarea>
+      <h4>Product</h4>
+      <table class="table table-striped table-hover table-sm">
+    		<thead class="thead-dark">
+        <th>Product</th>
+        <th>Price</th>
+      </thead>
+      <tbody id="prod_sec">
+				<tr>
+					<td><%= saleWeb.product.title %></td>
+					<td><%= saleWeb.product.price %></td>
+				</tr>
+      </tbody>
+    </table>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h4>Edit Product IMEI</h4>
+  </div>
+        <div class="col-sm-12">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+                <th>IMEI</th>
+                <th>Action</th>
+              </tr>
+            </thead>
+            <tbody>
+              <% for(var i of imei){
+                 for(var c of col){
+                if(c.id==i.imei){%>
+                <tr>
+                  <td><%= c.imei %></td>
+                  <td><a href="/sale/delete_imei/<%= i.id %>/<%= c.id %>">Delete</a></td>
+                </tr>
+              <% } } } %>
+            </tbody>
+          </table>
+        </div>
+</div>

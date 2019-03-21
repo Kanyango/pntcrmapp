@@ -1,0 +1,35 @@
+<!-- <div class="md-form">
+  <label for="first_name">First Name</label>
+  <input type="text" id="first_name" name="first_name" class="form-control" value="<%= client.first_name %>">
+</div>
+<div class="md-form">
+  <label for="first_name">Last Name</label>
+  <input type="text" id="last_name" name="last_name" class="form-control" value="<%= client.last_name %>">
+</div>
+<div class="md-form">
+  <label for="email">Email</label>
+  <input type="email" id="email" name="email" class="form-control" value="<%= client.email %>">
+</div>
+<div class="md-form">
+  <label for="phone">Phone</label>
+  <input type="text" id="phone" name="phone" class="form-control" value="<%= client.phone %>">
+</div> -->
+<div class="row">
+  <div class="col-md-3">
+    <label for="name">First Name</label>
+    <%= client.first_name %>
+  </div>
+  <div class="col-md-3">
+    <label for="name">Last name </label>
+    <%= client.last_name %>
+  </div>
+  <div class="col-md-3">
+    <label for="name">Email</label>
+    <%= client.email %>
+  </div>
+  <div class="col-md-3">
+    <label for="name">Phone</label>
+    <%= client.phone %>
+  </div>
+</div>
+  <input type="hidden" name="id" class="form-control" value="<%= client.id %>">

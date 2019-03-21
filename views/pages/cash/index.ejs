@@ -1,0 +1,104 @@
+<% include ../../partials/header  %>
+<% function getFormattedDate(date) {
+    var year = date.getFullYear();
+  
+    var month = (1 + date.getMonth()).toString();
+    month = month.length > 1 ? month : '0' + month;
+  
+    var day = date.getDate().toString();
+    day = day.length > 1 ? day : '0' + day;
+  
+    return day + '/' + month + '/' + year;
+  }
+  var today = new Date();
+  var today = new Date(today.toDateString());
+  var saleToday =[];
+  for(var i of sale){ 
+    var pDate = new Date(i.updated_at); %>
+    <%= pDate.getTime() %>
+    <%  if(i.updated_at==today.getTime()){
+        saleToday.push()
+      }
+  }
+  %>
+<div class="page-header">
+    <div class="page-title">
+
+    </div>
+    <div class="page-actions">
+
+    </div>
+</div>
+<div class="page-content">
+    <div class="row">
+        <div class="col-md-3">
+            <div class="todayDiv">
+                <div class="bigFig">
+                    0
+                </div>
+                <div class="smallFig">
+                    Sales
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="todayDiv">
+                <div class="bigFig">
+                    0
+                </div>
+                <div class="smallFig">
+                    Products
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="todayDiv">
+                <div class="bigFig">
+                    0
+                </div>
+                <div class="smallFig">
+                    Today Sales
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="todayDiv">
+                <div class="bigFig">
+                    0
+                </div>
+                <div class="smallFig">
+                    Expenses
+                </div>
+            </div>
+        </div>
+        <div class="col-md-3">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Sales</h5>
+                    <h6 class="card-subtitle mb-2 text-muted"><%= saleCArr%></h6>
+                    <p class="card-text">Cost: Ksh. <%= cost %></p>
+                    <p class="card-text">Price:Ksh.  <%= price %></p>
+                    <%= expense %>
+                    <p class="card-text"></p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-9">
+                <div class="list-group">
+                    <% for(var i of imeiT){%>
+                        <a href="/cash/vendor/<%= i.collected.vendor.id %>" class="list-group-item list-group-item-action">
+                          <%= i.collected.vendor.name %>
+                          <span class="badge badge-primary badge-pill">
+                                <% var num=0; for(var it of imei){
+                                    if(it.collected.vendor._id == i.collected.vendor._id){
+                                    num = num + parseInt(it.collected.cost); %> 
+                                <% } } %>
+                                <%= num %>
+                          </span>
+                        </a>
+                        <% } %>
+                </div>
+        </div>
+    </div>
+</div>
+<% include ../../partials/footer %>

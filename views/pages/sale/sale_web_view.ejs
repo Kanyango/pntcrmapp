@@ -1,0 +1,106 @@
+<% include ../../partials/header %>
+<form action="/sale/add_web" method="post" role="form" class="row">
+<div class="page-header">
+	<div class="page-title">
+    Sale Web
+	</div>
+	<div class="page-actions">
+          <input type="hidden" name="first_name" value="<%= saleWeb.first_name %>">
+          <input type="hidden" name="last_name" value="<%= saleWeb.last_name %>">
+          <input type="hidden" name="email" value="<%= saleWeb.email %>">
+          <input type="hidden" name="phone" value="<%= saleWeb.phone %>">
+          <% for(var cart of saleWeb.cart ){ %>
+              <!-- <input type='hidden' name='prod[]' value="<%= cart.productId %>">
+              <input type='hidden' name='price[]' value="<%= cart.price %>">
+              <input type='hidden' name='cost[]' value="0">
+              <input type='hidden' name='qty[]' value="<%= cart.quantity %>"> -->
+          <% } %>
+          <% for(var cl  of client){ 
+            if(cl.phone == saleWeb.phone ){ %>
+              <input type="hidden" name="client_id" value="<%= cl.id %>">
+          <% } } %>
+          <input type="hidden" name="web_id" value="<%= saleWeb.id %>">
+          <button type='submit' class='btn btn-success'>Confirm Order</button>    
+    
+	</div>
+</div>
+<div class="page-content">
+  <div class="row">
+    <div class="col-md-4 col-sm-6 col-xs-12">
+      <div class="md-form">
+        <label for="first_name">First Name</label>
+        <input type="text" id="first_name" name="first_name" value="<%= saleWeb.first_name %>" class="form-control" disabled>
+      </div>
+      <div class="md-form">
+        <label for="last_name">Last Name</label>
+        <input type="text" id="last_name" name="last_name" value="<%= saleWeb.last_name %>" class="form-control" disabled>
+      </div>
+      <div class="md-form">
+        <label for="email">Email</label>
+        <input type="email" id="email" name="email" value="<%= saleWeb.email %>" class="form-control" disabled>
+      </div>
+      <div class="md-form">
+        <label for="phone">Phone</label>
+        <input type="text" id="phone" name="phone" value="<%= saleWeb.phone %>" class="form-control" disabled>
+      </div>
+    </div>
+    <div class="col-md-8 col-sm-6 col-xs-12">
+			<h4>Delivery</h4>
+			<table class="table table-striped table-hover table-sm">
+				<tr>
+					<th>Delivery Location</th>
+					<td><%= saleWeb.delivery_location %></td>
+				</tr>
+				<tr>
+					<th>Ship Area</th>
+					<td><%= location.location %> | Ksh. <%= saleWeb.shipping.amount %></td>
+				</tr>
+			</table>
+			<hr>
+      <h4>Cart</h4>
+      <table class="table table-striped table-hover table-sm data-tables">
+    		<thead class="thead-dark">
+        <th>Product</th>
+        <th>Collected</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Action</th>
+      </thead>
+      <tbody id="prod_sec">
+        <% for(var cart of saleWeb.cart ){ %>
+          <tr>
+            <td>
+							<% for(var p of prod){
+								if(p.id == cart.productId){ %>
+								<%= p.title %>
+							<% } } %>
+            </td>
+            <td>
+            <!-- <input type='hidden' name='prod[]' value="<%= cart.productId %>"> -->
+              <input type='hidden' name='price[]' value="<%= cart.price %>">
+              <input type='hidden' name='cost[]' value="0">
+              <input type='hidden' name='qty[]' value="<%= cart.quantity %>">
+            <select name="prod[]" required>
+              <option value="" >Please Choose Selected</option>
+              <% for(var c of coll ){ %><%= c.product %>
+                <%  if(c.product._id ==cart.productId ){
+                  var tt =c.product.title %>
+                <option value="<%= c.id %>"><%= c.vendor.name %>-<%= tt.substring(0, 50) %></option>
+              <% } } %>
+            </select>
+            </td>
+            <td><%= cart. price %></td>
+            <td><%= cart.quantity %></td>
+            <td></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+  </div>
+</div>
+</form>
+<% include ../../partials/footer %>

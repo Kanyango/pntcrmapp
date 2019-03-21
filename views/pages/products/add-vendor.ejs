@@ -1,0 +1,93 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Add Product Vendor
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" value="<%= products.title %>" disabled>
+      </div>
+
+      <table class="table">
+        <thead>
+          <tr>
+            <th scope="col">Vendor</th>
+            <th scope="col">Cost</th>
+            <th scope="col">Feature</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var v of pvendor){%>
+          <tr>
+            <td><% for( var ven of vendor){
+              if(ven.id== v.vendor){%>
+                <%=ven.name %>
+              <%}
+            } %></td>
+            <td><%= v.cost %></td>
+            <td><%= v.feature %></td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-6">
+      <form action="/products/add-vendor/<%= products.id %>" method="post" role="form" class="row">
+        <table class="table table-striped table-hover table-sm">
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Vendor</th>
+              <th scope="col">Cost</th>
+              <th scope="col">Feature</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody id="Prod-Vendor">
+
+          </tbody>
+        </table>
+        <div class="form-group">
+          <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-12">
+      <table class="table table-striped table-hover table-sm data-tables">
+  			<thead class="thead-dark">
+            <tr>
+              <td></td>
+              <th>Vendor</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% for(var v of vendor){
+                 %>
+            <tr id="tr_<%= v.id %>">
+                <td>
+                  <div class="form-group checkbox-warning-filled">
+                      <input type="checkbox" name="vendors[]" value="<%= v.id %>" id="ch_<%= v.id %>" class="filled-in" onclick="addvendor('<%= v.id %>')">
+                      <label for="<%= v.id %>"></label>
+                      <input type="hidden" name="vendor[]" value="<%= v.name %>" id="vendor_<%= v.id %>">
+                  </div>
+                </td>
+                <td><%= v.name %></td>
+            </tr>
+            <% } %>
+
+          </tbody>
+        </table>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+<% include ../../partials/footer %>

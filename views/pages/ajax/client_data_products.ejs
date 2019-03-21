@@ -1,0 +1,38 @@
+<% for(var s of sale){ %>
+
+    <% for(var sp of saleP){
+      if(s.id == sp.sale){
+        for(var cv of colV){
+          if(cv.id ==  sp.product){
+            for(var cp of colP){
+              if(cv.id == cp.collected){%>
+                <tr>
+                  <td>
+                    <div class="form-group checkbox-warning-filled">
+                        <input type="checkbox" name="product[]" value="<%= cp.id %>" id="ch_<%= cp.id %>" class="filled-in" onclick="addProdR('<%= cp.id %>')">
+                        <label for="<%= cp.id %>"></label>
+                    </div>
+                  </td>
+                  <td><%= cp.status %></td>
+                  <td>
+                          <%= cp.imei %>
+                          <input type="hidden" value="<%= cp.imei %>" id="imei_<%= cp.id %>">
+                  </td>
+                  <td>
+                    <%for(var p of products){
+                        if(p.id == cv.product){%>
+                    <%= p.title %>
+                    <input type="hidden" value="<%= p.title %>" id="product_<%= cp.id %>">
+                    <% } } %>
+                  </td>
+                  <td>
+                    <% for(var v of vendor){
+                      if(v.id == cv.vendor){ %>
+                    <%= v.name %>
+                    <input type="hidden" value="<%= v.name %>" id="vendor_<%= cp.id %>">
+                    <% } } %>
+                  </td>
+                </tr>
+    <% } } } } } }%>
+
+<% } %>

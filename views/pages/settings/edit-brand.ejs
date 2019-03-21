@@ -1,0 +1,128 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Edit Brand
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content setting-page">
+  <div class="row">
+    <div class="col-md-12 col-xs-12">
+      <div class="x_panel">
+        <div class="x_title">
+          <div class="row">
+          </div>
+          <div class="clearfix"></div>
+        </div>
+        <div class="x_content">
+          <form class="row" action="/settings/edit-brand/<%= brand.id %>" method="post" autocomplete="off">
+            <div class="row">
+              <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Brand</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" name="title" class="form-control" value="<%= brand.title %>">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <label for="description" class="col-md-12 col-sm-12 col-xs-12">Description</label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <textarea name="description" id="description" class="tinymce form-control"><%= brand.description %></textarea>
+                    </div>
+                  </div>
+              </div>
+              <div class="col-md-6">
+                  <div class="form-group">
+                    <label class="control-label col-md-3 col-sm-3 col-xs-12">Brand Logo</label>
+                    <div class="col-md-9 col-sm-9 col-xs-12">
+                      <input type="text" name="logo" class="form-control" value="<%= brand.logo %>">
+                    </div>
+                  </div>
+                  <div class="form-group">
+                      <label for="footer_seo" class="col-md-12 col-sm-12 col-xs-12">Footer Seo</label>
+                      <div class="col-md-12 col-sm-12 col-xs-12">
+                        <textarea name="footer_seo" id="footer_seo" class="tinymce form-control"><%= brand.footer_seo %></textarea>
+                      </div>
+                  </div>
+              </div>
+              <div class="col-md-12">
+                <div class=" pull-right">
+                  <button onclick='addBrandFoot()'>add</button>
+                </div>
+                <div class="row">
+                  <% if(brand.category == ''){ %>
+                    <div class="col-md-4">
+                        <div class="form-group">
+                            <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                            <div class="col-md-9 col-sm-9 col-xs-12">
+                              <select id="category" name="category" class="form-control" required>
+                                <option value="">Choose Category</option>
+                                <% for(var cat of category){ %>
+                                  <option value="<%= cat.id %>" ><%= cat.title %></option>
+                                <% } %>
+                              </select>
+                              
+                            </div>
+                          </div>
+                    </div>
+                    <div class="col-md-8">
+                        <div class="form-group">
+                            <label for="footer_seo" class="col-md-12 col-sm-12 col-xs-12">Category Footer Seo</label>
+                            <div class="col-md-12 col-sm-12 col-xs-12">
+                              <textarea name="category_footer_seo" id="category_footer_seo" class="tinymce form-control"></textarea>
+                            </div>
+                        </div>
+                    </div>
+                    <% }else{ %>
+                      <% for(var c of brand.category){ %>
+                      <div class="col-md-4">
+                          <div class="form-group">
+                              <label class="control-label col-md-3 col-sm-3 col-xs-12">Category</label>
+                              <div class="col-md-9 col-sm-9 col-xs-12">
+                                <select id="category" name="category" class="form-control" required>
+                                  <option value="">Choose Category</option>
+                                  <% for(var cat of category){ %>
+                                    <option value="<%= cat.id %>"  <% if(cat.id==c.link){ %> selected <%} %>><%= cat.title %></option>
+                                  <% } %>
+                                </select>
+                              </div>
+                            </div>
+                      </div>
+                      <div class="col-md-8">
+                          <div class="form-group">
+                              <label for="footer_seo" class="col-md-12 col-sm-12 col-xs-12">Category Footer Seo</label>
+                              <div class="col-md-12 col-sm-12 col-xs-12">
+                                <textarea name="category_footer_seo" id="category_footer_seo" class="tinymce form-control"><%= c.footer %></textarea>
+                              </div>
+                          </div>
+                      </div>
+                      <% } %>
+                      <% } %>
+                </div>
+                <div class="row" id="newCat"></div>
+              </div>
+              <div class="col-md-4">
+                <div class="form-actions">
+                  <button type="submit" class="btn btn-primary">Submit</button>
+                </div>
+              </div>
+            </div>
+
+          </form>
+          <div class="row">
+            <div class="col-sm-2">
+
+            </div>
+            <div class="col-sm-2">
+
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

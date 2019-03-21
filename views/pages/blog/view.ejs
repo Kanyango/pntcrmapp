@@ -1,0 +1,68 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Blog Info
+	</div>
+	<div class="page-actions">
+    <select class=" custom-select" name="blog-status" id="blog-status" style="width: 150px;display: initial;">
+      <option value="0" <% if(blog.status==0){ %> selected <% } %>>Disabled</option>
+      <option value="1" <% if(blog.status==1){ %> selected <% } %>>Enabled</option>
+    </select>
+
+    <a href="/blog/edit-info/<%= blog.id %>" class="btn btn-outline-primary">Edit Info</a>
+		<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#thumbnail-image">
+  thumbnail-image
+</button>
+		<a href="/blog/image/<%= blog.id %>" class="btn btn-outline-primary">Images</a>
+	</div>
+</div>
+<div class="page-content">
+
+  <input type="hidden" name="id" value="<%= blog.id %>">
+  <div class="row">
+    <div class="col-md-6">
+      <label for=""> <strong> Title</strong></label>
+      <div><%= blog.title %></div>
+    </div>
+		<div class="col-md-6">
+			<label for=""><strong>Thumb</strong></label>
+			<%= blog.thumb_image %>
+			<hr>
+			<label for=""><strong>Image</strong></label>
+			<%= blog.main_image %>
+		</div>
+    <div class="col-md-6">
+      <label for=""><strong>Short Content</strong></label>
+      <div><%- blog.short_content %></div>
+    </div>
+    <div class="col-md-6">
+      <label for=""><strong>Full Content</strong></label>
+      <div><%- blog.full_content %></div>
+    </div>
+
+  </div>
+  <hr>
+	<div class="modal fade" id="thumbnail-image" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+					<form action="/blog/blog-thumbnail-image/<%= blog.id %>" method="post" enctype="multipart/form-data">
+        <h2>Upload File</h2>
+        <label for="fileSelect">Filename:</label>
+				<input type="file" name="sampleFile" />
+        <input type='submit' value='Upload!' />
+    </form>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
+</div>
+<% include ../../partials/footer %>

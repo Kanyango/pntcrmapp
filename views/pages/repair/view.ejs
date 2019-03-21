@@ -1,0 +1,131 @@
+<% include ../../partials/header %>
+<%
+var total=0;
+var balance =0;
+for(var p of products){
+total=total + p.cost;
+}
+%>
+<div class="page-header">
+	<div class="page-title">
+    View Repair
+	</div>
+	<div class="page-actions">
+    <div id="total-cont">
+      <span class="total-txt" <% if(balance==0){ %>style="color: #01a397;"<% } %>>TOTAL:   </span>
+      <span class="total-fig" <% if(balance==0){ %>style="color: #01a397;"<% } %>><%= total %></span>
+     </div>
+	</div>
+</div>
+<div class="page-content">
+	<div class="row">
+    <div id ="nSaleB" class="col-md-5 col-sm-6 col-xs-12">
+      <% for(var c of client){
+        if(c.id==repair.client){%>
+      <div class="col-md-12">
+        <label class="col-md-4">First Name:</label>
+        <span class="col-md-8"><%= c.first_name %></span>
+      </div>
+      <div class="col-md-12">
+        <label class="col-md-4">Last Name:</label>
+        <span class="col-md-8"><%= c.last_name %></span>
+      </div>
+      <div class="col-md-12">
+        <label class="col-md-4">Email</label>
+        <span class="col-md-8"><%= c.email %></span>
+      </div>
+      <div class="col-md-12">
+        <label class="col-md-4">Phone</label>
+        <span class="col-md-8"><%= c.phone %></span>
+      </div><% } } %>
+      <div class="col-md-12">
+        <label class="col-md-4">Status</label>
+        <span class="col-md-8"><%= repair.status %></span>
+      </div>
+      <div class="col-md-12">
+           <button onclick="repair_edit('<%= repair.id %>')" class="btn btn-info">Edit</button>
+      </div>
+
+    </div>
+    <div class="col-md-7 col-sm-6 col-xs-12">
+			<div class="col-md-12">
+        <label class="col-md-4">Reminder</label>
+        <span class="col-md-8">
+        	<%
+						for(var rp of reminderP){
+							if(rp.repair == repair.id){
+								for(var r of reminder){
+									if(r.id == rp.reminder){date =  new Date(r.date); %>
+									<%= date %>
+								<%}
+								}
+							}
+						}
+					%>
+        </span>
+      </div>
+			<hr>
+      <h3>Products For Repair</h3>
+      <table class="table table-bordered table-striped table-hover table-heading table-datatable">
+        <thead>
+          <th>Product</th>
+          <th>Issue</th>
+          <th>Imei</th>
+          <th>Cost</th>
+          <th>Status</th>
+          <th>Action</th>
+        </thead>
+        <tbody>
+          <% for(var p of products){ %>
+            <tr <% if(p.cost==0){%> class="red-bg" <% } %>>
+              <td><%= p.title %></td>
+              <td><%= p.issue %></td>
+              <td><%= p.imei %></td>
+              <td><%= p.cost %></td>
+              <td><%= p.status %></td>
+              <td><button onclick="repairp_edit('<%= p.id %>')">Edit</button></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+    <div class="col-md-6 col-sm-6 col-xs-12">
+      <h4 class="pull-left">Payment</h4>
+
+        <button class="pull-right" type="button" id="<%= repair.id %>" onclick="repair_payment('<%= repair.id %>')">make payment</button>
+
+      <table class="table table-bordered table-striped table-hover table-heading">
+        <thead>
+          <th>Date</th>
+          <th>Amount</th>
+        </thead>
+        <tbody>
+          <% for(var pay of payment) { %>
+            <tr>
+              <td><%= pay.created_at %></td>
+              <td><%= pay.amount %></td>
+            </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+	</div>
+</div>
+<!-- Modal -->
+<div class="modal fade" id="repair-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div id="repairBody" class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

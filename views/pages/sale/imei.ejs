@@ -1,0 +1,56 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    All Imei
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <div class="row">
+    <div class="col-md-12 col-sm-12 col-xs-12">
+		<table class="table table-striped table-hover table-sm data-tables">
+			<thead class="thead-dark">
+          <tr>
+            <td>Imei</td>
+            <th>Status</th>
+            <th>Product</th>
+            <th>Vendor</th>
+            <th>Action</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i of productsInfo){%>
+                <tr>
+                  <td><%= i. imei %></td>
+                  <td><%= i.status %></td>
+                  <td>
+                    <% for(var cp of cproducts){
+                      if(cp.id == i.collected){
+                        for(var p of products){
+                          if(p.id == cp.product){
+                        %>
+                      <%= p.title %>
+                    <% } } } } %>
+                  </td>
+                  <td>
+                    <% for(var cp of cproducts){
+                      if(cp.id == i.collected){
+                        for(var v of vendor){
+                          if(v.id == cp.vendor){
+                        %>
+                      <%= v.name %>
+                    <% } } } } %>
+                  </td>
+                  <td><a href="/sale/imei/<%= i.id %>">view</a></td>
+                </tr>
+            <% } %>
+
+
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

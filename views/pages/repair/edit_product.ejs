@@ -1,0 +1,39 @@
+<div class="row padding-20">
+  <h4 class="col-sm-12">Edit Repair Product</h4>
+  <form class="" action="/repair/edit_product/<%= products.id %>" method="post" >
+    <div class="row">
+    <input type="hidden" name="_method" value="put">
+        <div class="col-sm-6">
+          <label for="title">Title</label>
+    			<input type="text" id="title" class="form-control" name="title" value="<%= products.title %>" placeholder="Title">
+    		</div>
+        <div class="col-sm-6">
+          <label for="imei">Imei</label>
+    			<input type="text" id="imei" class="form-control" name="imei" value="<%= products.imei %>" placeholder="Product IMEI">
+    		</div>
+        <div class="col-sm-6">
+          <label for="cost">Cost</label>
+    			<input type="text" id="cost" class="form-control" name="cost" value="<%= products.cost %>" placeholder="Cost">
+    		</div>
+        <div class="col-sm-6">
+          <label for="status">Status</label>
+          <select class="form-control" name="status">
+            <option value="in store" <% if(products.status == 'in store'){ %> selected <% } %>>In Store</option>
+            <option value="delivered_to_store" <% if(products.status == 'delivered_to_store'){ %> selected <% } %>>Delivered To Store</option>
+            <option value="picked_from_repair" <% if(products.status == 'picked_from_repair'){ %> selected <% } %>>Picked From Repair</option>
+            <<option value="client_picked" <% if(products.status == 'client_picked'){ %> selected <% } %>>Client Picked</option>
+          </select>
+    		</div>
+        <div class="col-sm-6">
+          <label for="issue">Issue</label>
+          <textarea name="issue" class="form-control">
+            <%= products.issue %></textarea>
+        </div>
+        <input type="hidden" name="id" value="<%= products.repair %>">
+      <div class="clearfix"></div>
+      <div class="form-group col-sm-12 padding-15">
+        <button type="submit" class="add_imei btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>

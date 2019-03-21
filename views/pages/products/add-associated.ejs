@@ -1,0 +1,71 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Add Product Associated
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input type="text" class="form-control" id="title" value="<%= products.title %>" disabled>
+      </div>
+
+    </div>
+    <div class="col-md-6">
+      <form action="/products/add-associated/<%= products.id %>" method="post" role="form" class="row">
+				<table class="table table-striped table-hover table-sm">
+					<thead class="thead-dark">
+	        <th>Product</th>
+	        <th>Price</th>
+	        <th>Action</th>
+	      </thead>
+	      <tbody id="Prod-Cat">
+
+	      </tbody>
+	    </table>
+        <div class="form-group">
+          <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+            <button type="submit" class="btn btn-success">Submit</button>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="col-md-12">
+			<table class="table table-striped table-hover table-sm data-tables">
+				<thead class="thead-dark">
+	          <tr>
+	            <td></td>
+	            <th>Title</th>
+	            <th>Price</th>
+	          </tr>
+	        </thead>
+	        <tbody>
+	          <% for(var prod of allprod){ %>
+	          <tr id="tr_<%= prod.id %>">
+	              <td>
+	                <div class="form-group checkbox-warning-filled">
+	                    <input type="checkbox" name="product[]" value="<%= prod.id %>" id="ch_<%= prod.id %>" class="filled-in" onclick="addProdC('<%= prod.id %>')">
+	                    <label for="<%= prod.id %>"></label>
+	                    <input type="hidden" name="product[]" value="<%= prod.id %>" id="P_<%= prod.id %>">
+	                    <input type="hidden" value="<%= prod.title %>" id="product_<%= prod.id %>">
+											<input type="hidden" value="<%= prod.price %>" id="price_<%= prod.id %>">
+	                </div>
+	              </td>
+	              <td><%= prod.title %></td>
+	              <td><%= prod.price %></td>
+	          </tr>
+	          <% } %>
+
+	        </tbody>
+	      </table>
+    </div>
+  </div>
+</div>
+<!-- Modal -->
+
+<% include ../../partials/footer %>

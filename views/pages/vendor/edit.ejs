@@ -1,0 +1,35 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Edit Vendor
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form class="row" action="/vendor/edit/<%= vendor.id %>" method="post">
+    <div class="col-md-4">
+      <label for="name">Name</label>
+      <input type="text" name="name" class="form-control" required value="<%= vendor.name %>">
+    </div>
+    <div class="col-md-4">
+      <label for="email">Email</label>
+      <input type="email" name="email" class="form-control" required value="<%= vendor.email %>">
+    </div>
+    <div class="col-md-4">
+      <label for="phone">Phone</label>
+      <input type="text" name="phone" class="form-control" required value="<%= vendor.phone %>">
+    </div>
+    <div class="col-md-4">
+      <label for="location">location</label>
+      <input type="text" name="location" class="form-control" required value="<%= vendor.location %>">
+    </div>
+    <div class="col-md-12 padding">
+      <div class="form-actions">
+        <button type="submit" class="btn btn-primary">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<% include ../../partials/footer %>

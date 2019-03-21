@@ -1,0 +1,43 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Edit Main Shipping
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form action="/settings/edit-main-shipping/<%= shipping.id %>" method="post" autocomplete="off">
+    <div class="row">
+     <div class="col-md-6">
+       <div class="form-group">
+         <label class="control-label col-md-12 col-sm-12 col-xs-12">Location</label>
+         <div class="col-md-12 col-sm-12 col-xs-12">
+          <select class="custom-select" name="location">
+            <option selected>Choose...</option>
+            <%
+             for(var l of location){ %>
+               <option value="<%= l.id %>" <% if(shipping.location == l.id){ %> selected <%} %>><%= l.location %></option>
+             <% } %>
+           </select>
+         </div>
+       </div>
+		 </div>
+		 <div class="col-md-6">
+       <div class="form-group">
+         <label class="control-label col-md-12 col-sm-12 col-xs-12">Amount</label>
+         <div class="col-md-12 col-sm-12 col-xs-12">
+           <input type="text" name="amount" class="form-control" value="<%= shipping.amount %>">
+         </div>
+       </div>
+     </div>
+		 <div class="col-md-12">
+			 <div class="form-actions">
+ 				<button type="submit" class="btn btn-primary">Submit</button>
+ 			</div>
+		 </div>
+    </div>
+ </form>
+</div>
+<% include ../../partials/footer %>

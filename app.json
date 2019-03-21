@@ -1,0 +1,8 @@
+{
+  "name": "Phones Tablets CRM",
+  "description": "This is a crm system for Phones And Tables",
+  "repository": "https://github.com/sam4021/pt_crm",
+  "logo": "https://cdn.rawgit.com/heroku/node-js-getting-started/master/public/node.svg",
+  "keywords": ["node", "express", "heroku"],
+  "image": "heroku/nodejs"
+}

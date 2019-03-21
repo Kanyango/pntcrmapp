@@ -1,0 +1,184 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Client Info
+	</div>
+	<div class="page-actions">
+		<a href="/client/add" class="btn btn-success pull-right">Add Client</a>
+		<button type="button" class="btn btn-outline-danger" data-toggle="modal" data-target="#edit-Modal">Edit</button>
+	</div>
+</div>
+<div class="page-content">
+  <input type="hidden" name="id" value="<%= client.id %>">
+  <div class="row">
+    <div class="col-sm-2">
+      <label> <strong>Name:</strong> <%= client.first_name %> <%= client.last_name %></label>
+    </div>
+    <div class="col-sm-2">
+      <label> <strong>Phone:</strong> <%= client.phone %></label>
+    </div>
+    <div class="col-sm-2">
+      <label> <strong>Email:</strong> <%= client.email %></label>
+    </div>
+		<div class="col-md-12"></div>
+		<div class="col-md-6">
+			<h6><strong>Location</strong></h6>
+			<%= client.location %>
+		</div>
+		<div class="col-md-6">
+			<h6><strong>Company</strong></h6>
+			<%= client.company %>
+		</div>
+  </div>
+  <hr>
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+  <li class="nav-item">
+    <a class="nav-link active" id="order-tab" data-toggle="tab" href="#order" role="tab" aria-controls="order" aria-selected="true">Orders</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="repair-tab" data-toggle="tab" href="#repair" role="tab" aria-controls="repair" aria-selected="false">Repair</a>
+  </li>
+  <li class="nav-item">
+    <a class="nav-link" id="inq-tab" data-toggle="tab" href="#inq" role="tab" aria-controls="inq" aria-selected="false">Inquery</a>
+  </li>
+</ul>
+
+<div class="tab-content">
+  <div class="tab-pane active" id="order" role="tabpanel" aria-labelledby="order-tab">
+    <table class="table table-striped table-hover table-sm data-tables">
+      <thead class="thead-dark">
+        <th>Date</th>
+        <th>Status</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <% for(var s of sale){ %>
+          <tr>
+            <td><%= s.created_at %></td>
+            <td><%= s.status %></td>
+            <td><a href="/sale/view/<%= s.id %>">View</a></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="repair" role="tabpanel" aria-labelledby="repair-tab">
+    <table class="table table-striped table-hover table-sm data-tables">
+      <thead class="thead-dark">
+        <th>Date</th>
+        <th>Status</th>
+        <th></th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <% for(var r of repair){ %>
+          <tr>
+            <td><%= r.created_at %></td>
+            <td><%= r.status %></td>
+            <td>
+              <% for(var rp of repairP){
+                if(rp.repair==r.id){ %>
+                  <div class="clearfix">
+                    <div style="float:left;">
+                      Title:<%= rp.title %>
+                    </div>
+                    <div style="float:left;">
+                      Issue:<%= rp.issue %>
+                    </div>
+                    <div style="float:left;">
+                      Imei:<%= rp.imei %>
+                    </div>
+                  </div>
+              <% } } %>
+            </td>
+            <td><a href="/repair/view/<%= r.id %>">View</a></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+  <div class="tab-pane" id="inq" role="tabpanel" aria-labelledby="inq-tab">
+    <table class="table table-striped table-hover table-sm data-tables">
+      <thead class="thead-dark">
+        <th>Date</th>
+        <th>Query</th>
+        <th>Status</th>
+        <th>Action</th>
+      </thead>
+      <tbody>
+        <% for(var i of inquiry){ %>
+          <tr>
+            <td><%= i.created_at %></td>
+            <td><%= i.query %></td>
+            <td><%= i.status %></td>
+            <td><a href="/inquiry/view/<%= i.id %>">View</a></td>
+          </tr>
+        <% } %>
+      </tbody>
+    </table>
+  </div>
+</div>
+</div>
+<div class="modal fade" id="edit-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div class="modal-body">
+				<form action="/client/edit/<%= client.id %>" method="post" role="form">
+			    <div class="row">
+			    <div class="col-6 form-group">
+			      <label class="col-md-12 col-sm-12 col-xs-12" for="first_name">First Name </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+			        <input name="first_name" class="form-control" placeholder="First Name" value="<%= client.first_name %>">
+			      </div>
+			    </div>
+			    <div class="col-6 form-group ">
+			      <label class="col-md-12 col-sm-12 col-xs-12" for="last_name">Last Name</label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+			        <input class="form-control" name="last_name" id="last_name" placeholder="Last Name" value="<%= client.last_name %>">
+			      </div>
+			    </div>
+			    <div class="col-6 form-group ">
+			      <label class="col-md-12 col-sm-12 col-xs-12" for="phone">Phone </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+			        <input name='phone' class = 'form-control' placeholder='Phone Number' value="<%= client.phone %>">
+			      </div>
+			    </div>
+			    <div class="col-6 form-group ">
+			      <label class="col-md-12 col-sm-12 col-xs-12" for="email">Email </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+			         <input type="email" name="email" class="form-control" placeholder="Email" value="<%= client.email %>">
+			      </div>
+			    </div>
+			    <div class="col-md-12">
+			    	<hr/>
+			    </div>
+					<div class="col-6 form-group ">
+			      <label class="col-md-12 col-sm-12 col-xs-12" for="location">Location </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+							<textarea name="location" class="form-control" ><%= client.location %></textarea>
+			      </div>
+			    </div>
+					<div class="col-6 form-group ">
+			      <label class="col-md-12 col-sm-12 col-xs-12" for="company">Company </label>
+			      <div class="col-md-12 col-sm-12 col-xs-12">
+							<textarea name="company" class="form-control" ><%= client.company %></textarea>
+			      </div>
+			    </div>
+			    <div class="col-12">
+			      <div class="form-group">
+			        <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+			          <button type="submit" class="btn btn-success">Submit</button>
+			        </div>
+			      </div>
+			    </div>
+			  </div>
+			  </form>
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../partials/footer %>

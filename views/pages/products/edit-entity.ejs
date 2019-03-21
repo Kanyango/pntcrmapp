@@ -1,0 +1,116 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Edit Product Entity
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <!-- <form action="/products/edit-entityM/<%= products.id %>">
+    <select class="custom-select" name="entity" id="entity">
+        <% for(var e of entity){%>
+          <option value="<%= e.id %>"><%= e.title %></option>
+        <% } %>
+      </select>
+    <button type="button" name="button" onclick="addProdE()">Add</button>
+    <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+      <table>
+        <thead>
+          <tr>
+            <th>Entity</th>
+            <th>Value</th>
+          </tr>
+        </thead>
+        <tbody id="Prod-Ent">
+          <tr>
+            <td></td>
+            <td></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </form> -->
+  <form action="/products/edit-entity/<%= products.id %>" method="post" role="form" class="row">
+		<div class="row">
+      <div class="col-md-12">
+        <%= products.title %>
+      </div>
+        <% for(var a of attrib){ %>
+          <div class="col-md-3">
+            <% for(var e of entity){
+              if(e.id==a.entities){
+                 %>
+                 <input type="hidden" name="options[]" class="form-control" value="<%= e.id %>">
+                <% if(e.input_type =='select'){
+                    var opt=[];
+                  for(var pe of pentity){
+                    if(pe.entities==e.id){
+                      opt.push(pe.value);
+                     } }
+                      %>
+                  <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12" for="<%= e.id %>"><%= e.title %></label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <select class="multiselect form-control" multiple="multiple" name="opt_val_<%= e.id%>[]" id="<%= e.id %>"
+                        <% if(e.required == 1){ %> required="required <% } %> >
+                        <option value="">Choose option</option>
+                        <% for(option of e.options){  var pos = opt.indexOf(option);  %>
+                        <option value="<%= option %>" <% if(pos >= 0 ){ %> selected  <% } %>><%= option %></option>
+                        <% } %>
+                      </select>
+                    </div>
+                  </div>
+
+                <% } else if(e.input_type =='boolean') {
+                  var opt = '';
+                  for(var pe of pentity){
+                    if(pe.entities==e.id){
+                      opt= pe.value;
+                      } }%>
+                  <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12" for="<%= e.id %>"><%= e.title %></label>
+                    <div class="form-check col-md-12 col-sm-12 col-xs-12 ">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="opt_val_<%= e.id %>" id="yes" value="Yes" <% if(e.required == 1){ %> required="required" <% } %> <% if(opt=='Yes'){ %>checked<% } %> >
+                        Yes
+                      </label>
+                    </div>
+                    <div class="form-check col-md-12 col-sm-12 col-xs-12 ">
+                      <label class="form-check-label">
+                        <input class="form-check-input" type="radio" name="opt_val_<%= e.id %>" id="no" value="No" <% if(opt=='No'){ %>checked<% } %> >
+                        No
+                      </label>
+                    </div>
+                  </div>
+                <% } else {
+                  var opt = '';
+                  for(var pe of pentity){
+                    if(pe.entities==e.id){
+                      opt= pe.value;
+                      } }%>
+                  <div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+                    <label class="control-label col-md-12 col-sm-12 col-xs-12" for="id"><%= e.title %></label>
+                    <div class="col-md-12 col-sm-12 col-xs-12">
+                      <input type="text" name="opt_val_<%= e.id %>" class="form-control" placeholder="<%= e.title %>"
+                      <% if(e.required == 1){ %> required="required" <% } %> value="<%= opt %>" >
+                    </div>
+                  </div>
+                <% } %>
+              <% } %>
+            <% } %>
+          </div>
+        <% } %>
+		</div>
+    <div class="clearfix"></div>
+    <hr/>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<% include ../../partials/footer %>

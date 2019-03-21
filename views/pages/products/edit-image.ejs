@@ -1,0 +1,108 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Edit Product Info
+	</div>
+	<div class="page-actions">
+		<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#image-Modal">Add Image</button>
+		<button type="button" class="btn btn-outline-primary" data-toggle="modal" data-target="#image-front-Modal">Edit Front Image</button>
+	</div>
+</div>
+<div class="page-content">
+	<table class="table table-striped table-bordered table-sm">
+		<thead>
+			<tr>
+				<th>Image</th>
+				<th>Sort</th>
+				<th>Action</th>
+			</tr>
+		</thead>
+		<tbody>
+			<% for(var i of products.images){ %>
+				<tr>
+					<td><%= i[0] %></td>
+					<td><%= i[1] %></td>
+					<td><form action="/products/delete-image/<%= products.id %> %>" method="get"><input type="hidden" name="image" value="<%= i %>"><button type="submit" class="btn btn-outline-danger">Delete</button></form></td>
+				</tr>
+			<% } %>
+		</tbody>
+	</table>
+
+</div>
+<!-- Modal -->
+<div class="modal fade" id="image-front-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabelF" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content modal-lg">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabelF">Edit Front Image</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+				<form action="/products/edit-front-image/<%= products.id %>" method="post" role="form" class="row" autocomplete="off">
+							<div class="col-md-12">
+									<div class="form-group">
+										<label for="front_small">Front Small</label>
+										<input type="text" name="front_small" class="form-control" id="front_small" placeholder="Front Small" value="<%= products.image_front_small %>" >
+									</div>
+							</div>
+							<div class="col-md-12">
+									<div class="form-group">
+										<label for="front_big">Front Big</label>
+										<input type="text" name="front_big" class="form-control" id="front_big" placeholder="Front Big" value="<%= products.image_front_big %>">
+									</div>
+							</div>
+			    <div class="form-group">
+			      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+			        <button type="submit" class="btn btn-success">Submit</button>
+			      </div>
+			    </div>
+			  </form>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="modal fade" id="image-Modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content modal-lg">
+				<div class="modal-header">
+					<h5 class="modal-title" id="exampleModalLabel">Add Image</h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<form action="/products/add-image/<%= products.id %>" method="post" role="form" class="row" autocomplete="off">
+						<div class="col-md-12 col-sm-12 col-xs-12 row">
+							<button type="button" name="button" onclick="addImgRows()">Add Image</button>
+						<div class="col-md-12 col-sm-12 col-xs-12 form-group has-feedback">
+							<table>
+								<thead>
+									<tr>
+										<th>Image</th>
+										<th>Sort</th>
+									</tr>
+								</thead>
+								<tbody id="imgRows">
+									<tr>
+										<td></td>
+										<td></td>
+									</tr>
+								</tbody>
+							</table>
+						</div>
+						<!-- <input type="file" name="images_ere" value=""> -->
+						<div class="clearfix"></div>
+						</div>
+						<div class="form-group">
+							<div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+								<button type="submit" class="btn btn-success">Submit</button>
+							</div>
+						</div>
+					</form>
+				</div>
+			</div>
+		</div>
+	</div>
+<% include ../../partials/footer %>

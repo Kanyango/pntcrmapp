@@ -1,0 +1,83 @@
+<div class="row">
+  <div class="col-sm-12">
+    <h4 class="pull-left">Payment</h4>
+    <label class="pull-right">Total: Ksh.
+      <%
+      var GTotal=0;
+      var total=0;
+      var price=0;
+      var quantity=0;
+      for(var sprod of saleProd ){
+        if(sale.id == sprod.sale){
+          price=sprod.price;
+          quantity= sprod.qty;
+          total=price *quantity;
+          GTotal= GTotal + total;
+       } } %>
+       <%= GTotal %> || Balance
+       <%
+       var fAmount=0;
+       var amount = 0;
+       for(var pay of payment ){
+           amount=pay.amount;
+           fAmount = amount+ fAmount;
+         } %>
+         <%= GTotal-fAmount %>
+    </label>
+  </div>
+  <form action="/sale/sale_payment/<%= sale.id %>" method="post">
+    <table class="table">
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Mode</th>
+            <th scope="col">Amount</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <th scope="row">Cash</th>
+            <td><input type="text" name="cash" value="0" class="form-control form-control-sm" id="cash" onkeyup="sumPay()"></td>
+            <td></td>
+          </tr>
+          <tr>
+            <th scope="row">Mpesa</th>
+            <td><input type="text" name="mpesa" value="0" class="form-control form-control-sm" onkeyup="sumPay()"></td>
+            <td><input type="text" name="mpesa_id" class="form-control form-control-sm" placeholder="Mpesa Transaction"></td>
+          </tr>
+          <tr>
+            <th scope="row">Cheque</th>
+            <td><input type="text" name="cheque" value="0" class="form-control form-control-sm" onkeyup="sumPay()"></td>
+            <td><input type="text" name="cheque_id" class="form-control form-control-sm" placeholder="cheque_id"></td>
+          </tr>
+          <tr>
+            <th scope="row">Card</th>
+            <td><input type="text" name="card" value="0" class="form-control form-control-sm" onkeyup="sumPay()"></td>
+          </tr>
+          <thead class="thead-dark">
+            <tr>
+              <th scope="col">Total</th>
+              <th scope="col" id="total_pay">0</th>
+              <th></th>
+            </tr>
+          </thead>
+        </tbody>
+      </table>
+      
+    <hr>
+        <!-- <div class="col-sm-3">
+          <label for="amount" class="col-sm-4">Amount</label>
+        </div>
+        <div class="col-sm-8">
+          <input type="text" name="amount" value="" class="col-sm-8 form-control" id="amount">
+        </div> -->
+        <input type="hidden" name="id" value="<%= sale.id %>">
+        <input type="hidden" name="total" value="<%= GTotal %>">
+        <input type="hidden" name="balance" value="<%= GTotal-fAmount %>">
+
+      <div class="clearfix"></div>
+      <div class="form-group col-sm-12 padding-15">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </form>
+</div>

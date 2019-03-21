@@ -1,0 +1,9 @@
+<%
+var Gtotal=0;
+for(var p of products){
+  if(col.product == p.id){ %>
+  <% Gtotal = parseInt(total) + parseInt(p.price); %>
+<%  }
+}  %>
+
+<%= Gtotal %>

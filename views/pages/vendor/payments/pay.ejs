@@ -1,0 +1,120 @@
+<% include ../../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		<%= vendor.name %> Make Payment
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+<form action="/vendor/make-payment/<%= vendor.id %>" method="post" role="form" class="row">
+	<div class="row">
+		<div class="col-md-6 padding-20">
+			<div class="md-form">
+        <label for="total">Total</label>
+        <input type="text" id="total" name="total" class="form-control" value="0" disabled>
+      </div>
+			<div class="md-form">
+        <label for="amount">Amount Paid</label>
+        <input type="text" id="amount" name="amount" class="form-control" value="0">
+				<input type="hidden" id="total2" name="total2" class="form-control" value="0">
+      </div>
+
+		</div>
+		<div class="col-md-6">
+				<table class="table table-striped table-hover table-sm">
+					<thead>
+						<th>Product</th>
+						<th>Cost</th>
+						<th>Qty</th>
+						<th>Action</th>
+					</thead>
+					<tbody id="pay_sec"></tbody>
+				</table>
+				<div class="col-md-12 col-sm-12 col-xs-12 pull-right">
+					<div class="form-group padding-20">
+			      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+			        <button type="submit" class="btn btn-success">Submit</button>
+			      </div>
+			    </div>
+				</div>
+		</div>
+		<div class="col-md-12 padding-20">
+			<hr>
+		</div>
+		<div class="col-md-12">
+			<table class="table table-striped table-hover table-sm data-tables">
+				<thead>
+          <th></th>
+          <th>Product</th>
+					<th>Imei</th>
+					<th>Cost</th>
+					<th>Quantity</th>
+				</thead>
+				<tbody>
+          <% var trCount=1000;
+            for(var cp of cproducts){ %>
+							<% var qty=0;
+							var imeiArr = [];
+							var imeiArr1 = [];
+							for(var ci of cprodI){
+								if(ci.collected== cp.id){
+										trCount++;
+										qty++;
+										imeiArr.push(ci.id);
+										imeiArr1.push(ci.imei);
+								}
+							}
+							if(qty != 0 ){
+							 %>
+              <tr id="tr_<%=trCount%>">
+                <td>
+									<div class="form-group checkbox-warning-filled">
+	                    <input type="checkbox" name="imei[]" value="<%=imeiArr%>" id="ch_<%=trCount%>" class="filled-in" onclick="addpay('<%= imeiArr %>')">
+	                    <label for="ch_<%=imeiArr%>"></label>
+											<input type="hidden" name="ch_<%=imeiArr%>" value="<%=imeiArr%>">
+											<input type="hidden" name="trC_<%=imeiArr%>" value="<%=trCount%>">
+	                </div>
+                </td>
+                <td>
+                  <%
+                      for(var p of products){
+                        if(cp.product == p.id){ %>
+                      <%= p.title %>
+											<input type="hidden" name="pr_<%= imeiArr %>" value="<%= p.title %>">
+                  <% 		}
+                  }
+                  %>
+                </td>
+								<td>
+									<%= imeiArr1 %>
+									<input type="hidden" name="im_<%= imeiArr1 %>" value="<%= imeiArr %>">
+								</td>
+                <td>
+                  <% var cost=0;
+                  for(var sP of saleP){
+										 if(cp.id == sP.product){
+													 cost = cost + sP.cost;
+                    }
+                  }
+                  %>
+									<%= cost %>
+									<input type="hidden" name="co_<%= imeiArr %>" value="<%= cost %>">
+                </td>
+                <td>
+		              <%= qty %>
+									<input type="hidden" name="qty_<%= imeiArr %>" value="<%= qty %>">
+                </td>
+    					</tr>
+            <% }
+							}
+          %>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</form>
+</div>
+<!-- Modal -->
+<% include ../../../partials/footer %>

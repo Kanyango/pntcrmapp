@@ -1,0 +1,105 @@
+<% include ../../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+		Collected Product Info
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+	<div class="row">
+		<div class="col-md-6">
+			<div class="row">
+
+						<% for(var ven of vendor){
+							if(cproducts.vendor == ven.id){ %>
+								<% var created = new Date(cproducts.created_at);
+								var dd = created.getDate();
+								var mm = created.getMonth()+1;
+								var yyyy = created.getFullYear();
+								if(dd < 10){
+								    dd='0'+dd;
+								}
+								if(mm < 10){
+								    mm='0'+mm;
+								}
+								var created = dd+'-'+mm+'-'+yyyy; %>
+								<div class="col-md-12">
+									<hr>
+									<div class="form-group">
+										<label for="date">Date :: <%= created %></label>
+									</div>
+									<hr>
+								</div>
+								<div class="col-md-6">
+									<div class="form-group">
+										<label for="vendor">Vendor</label>
+										<input type="text" name="vendor" id="vendor" value="<%= ven.name %>" class="form-control" disabled>
+										<input type="hidden" name="vendor_id" value="<%= ven.id %>">
+									</div>
+								</div>
+						<% } } %>
+
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="user">Collected By</label>
+								<input type="text" name="user" id="user" value="<%= user.first_name %> <%= user.last_name %>" class="form-control" disabled>
+								<input type="hidden" name="user_id" value="<%= user.id %>">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="product">Product</label>
+								<input type="text" name="product" id="product" value="<%= cproducts.product.title %>" class="form-control" disabled>
+								<input type="hidden" name="product_id"  value="<%= cproducts.product.id %>">
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="form-group">
+						<label for="cost">Cost</label>
+						<input type="text" name="cost" id="cost" value="<%= cproducts.cost %>" class="form-control" disabled>
+					</div>
+				</div>
+			</div>
+			
+		</div>
+		<div class="col-md-6">
+			<table class="table table-bordered table-striped table-hover table-heading table-datatable">
+				<thead class="thead-dark">
+					<th>Products IMEI</th>
+					<th>Status</th>
+					<th>Action</th>
+				</thead>
+				<% for(var prodI of productsInfo){ %>
+					<tr>
+						<td><%= prodI.imei %></td>
+						<td><%= prodI.status %></td>
+						<td>
+							<div class="btn-group" role="group" aria-label="Basic example">
+							  <button type="button"  onclick="vendor_imei_edit('<%= prodI.id %>')" class="btn btn-primary">Edit</button>
+							  <button type="button"  onclick="vendor_imei_status('<%= prodI.id %>')" class="btn btn-success">Status</button>
+							</div>
+</td>
+					</tr>
+				<% } %>
+			</table>
+		</div>
+	</div>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="vendor-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+        <h4 class="modal-title" id="myModalLabel"></h4>
+      </div>
+      <div id="ModalBody" class="modal-body">
+
+      </div>
+    </div>
+  </div>
+</div>
+<% include ../../../partials/footer %>

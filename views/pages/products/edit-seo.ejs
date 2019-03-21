@@ -1,0 +1,50 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Edit Product SEO
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+	<h2><%= products.title %></h2>
+  <form action="/products/edit-seo/<%= products.id %>" method="post" role="form">
+		<div class="row">
+			<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+				<label for="url" class="col-md-12 col-sm-12 col-xs-12">URL <small>Max 65 Characters</small></label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<input name="url" id="url" class="form-control" value='<%- products.url%>' maxlength="65">
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+				<label for="title" class="col-md-12 col-sm-12 col-xs-12">Title SEO </label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<input name="title" id="title" class="form-control" value='<%- products.seo.title%>'>
+					<small> <i>seo-title</i> Specifications &amp; Price in Kenya | Buying Guides, Specs, Product Reviews &amp; Prices in Kenya</small>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+				<label for="keywords" class="col-md-12 col-sm-12 col-xs-12">keywords</label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<textarea rows="5" name="keywords" id="keywords" class="form-control"><%- products.seo.keywords %></textarea>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+				<label for="description" class="col-md-12 col-sm-12 col-xs-12">Description <small>Max 156 Characters</small></label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<textarea rows="4" name="description" id="description" class="form-control"  maxlength="156"><%- products.seo.description %></textarea>
+				</div>
+			</div>
+		</div>
+    <div class="clearfix"></div>
+    <hr/>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<% include ../../partials/footer %>

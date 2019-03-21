@@ -1,0 +1,46 @@
+<% for (var key of attrib){ %>
+  <% for(var value of entity){ %>
+    <% if(value.id==key.entities){ %>
+      <input type="hidden" name="options[]" class="form-control" value="<%= value.id %>">
+      <% if(value.input_type =='select'){ %>
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="<%= value.id %>"><%= value.title %></label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <select class="multiselect form-control" multiple="multiple" name="opt_val_<%= value.id%>[]" id="<%= value.id %>"
+              <% if(value.required == 1){ %> required="required <% } %> >
+              <option value="">Choose option</option>
+              <% for(option of value.options){  %>
+                <option value="<%= option %>"><%= option %></option>
+              <% } %>
+            </select>
+          </div>
+        </div>
+
+      <% } else if(value.input_type =='boolean') { %>
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="<%= value.id %>"><%= value.title %></label>
+          <div class="form-check col-md-6 col-sm-6 col-xs-12 ">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="opt_val_<%= value.id %>" id="yes" value="Yes" <% if(value.required == 1){ %> required="required" <% } %>>
+              Yes
+            </label>
+          </div>
+          <div class="form-check col-md-6 col-sm-6 col-xs-12 ">
+            <label class="form-check-label">
+              <input class="form-check-input" type="radio" name="opt_val_<%= value.id %>" id="no" value="No">
+              No
+            </label>
+          </div>
+        </div>
+      <% } else { %>
+        <div class="col-md-6 col-sm-6 col-xs-12 form-group has-feedback">
+          <label class="control-label col-md-3 col-sm-3 col-xs-12" for="id"><%= value.title %></label>
+          <div class="col-md-9 col-sm-9 col-xs-12">
+            <input type="text" name="opt_val_<%= value.id %>" class="form-control" placeholder="<%= value.title %>"
+            <% if(value.required == 1){ %> required="required" <% } %> >
+          </div>
+        </div>
+      <% } %>
+    <% } %>
+  <% } %>
+<% } %>

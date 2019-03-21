@@ -1,0 +1,261 @@
+<% include ../partials/header %>
+<%
+function getFormattedDate(date) {
+  var year = date.getFullYear();
+
+  var month = (1 + date.getMonth()).toString();
+  month = month.length > 1 ? month : '0' + month;
+
+  var day = date.getDate().toString();
+  day = day.length > 1 ? day : '0' + day;
+
+  return day + '/' + month + '/' + year;
+}
+var today = new Date();
+var dd = today.getDate();
+var mm = today.getMonth()+1;
+
+var yyyy = today.getFullYear();
+if(dd < 10){
+    dd='0'+dd;
+}
+if(mm < 10){
+    mm='0'+mm;
+}
+var today = dd+'/'+mm+'/'+yyyy;
+%>
+<%= today %>
+<%
+var today = new Date();
+var today = new Date(today.toDateString());
+%>
+  <div class="row">
+    <div class="col-md-12">
+      <div class="col-md-4">
+        <div class="form-group">
+          <label for="search_client">Search Client</label>
+          <input type="text" name="h_search_client" id="h_search_client" placeholder="Phone Number">
+        </div>
+      </div>
+      <div id="client_field" class="col-md-8">
+
+      </div>
+      <hr>
+    </div>
+    <div class="col-md-12 home-btns">
+      <a href="/sale/add" class="btn btn-success">New Order</a>
+      <a href="/repair/add" class="btn btn-info">New Repair</a>
+      <a href="/inquiry/add" class="btn btn-dark">New Inquiry</a>
+      <a href="/sale/collected_new/" class="btn btn-outline-primary">Add Collected</a>
+    </div>
+    <div class="col-md-4 padding-20">
+      <h5 class="home-header-top">Today Cash Flow</h5>
+      <div class="row margin-0">
+        <div class="col-md-4 bg-success">
+          <% var payC =0;
+            for(var p of payment){
+              var pDate = new Date(p.created_at);
+              var pDate2 = new Date(pDate.toDateString());
+              if(today.getTime() == pDate2.getTime()){
+                payC = payC + p.amount;
+              }
+            }
+           %>
+          <div class="home-pay">
+            <div class="top">
+              Ksh. <%= payC %>
+            </div>
+            <div class="bottom">
+              Payments
+            </div>
+          </div>
+        </div>
+        <div class="col-md-4 bg-danger">
+          <% var expeC =0;
+            for(var e of expense){
+              var eDate = new Date(e.created_at);
+              var eDate2 = new Date(eDate.toDateString());
+              if(today.getTime() == eDate2.getTime()){
+                expeC = expeC + e.amount;
+              }
+            }
+           %>
+           <div class="home-pay">
+             <div class="top">
+               Ksh. <%= expeC %>
+             </div>
+             <div class="bottom">
+               Expense
+             </div>
+           </div>
+        </div>
+        <div class="col-md-4 bg-info">
+          <% var saleC =0;
+            for(var s of sale){
+              var eDate = new Date(s.updated_at);
+              var eDate2 = new Date(eDate.toDateString());
+              if(s.status == 'Closed' && today.getTime() == eDate2.getTime()){
+                for(var sp of sproduct){
+                  if(s.id == sp.sale){
+                    for(var i of imei){
+                      if(i.sale == sp.id){ %>
+                      <% saleC = sp.price + saleC %>
+                    <% } }
+                  } } }
+            }
+           %>
+           <div class="home-pay">
+             <div class="top">
+               Ksh. <%= saleC %>
+             </div>
+             <div class="bottom">
+               Sales
+             </div>
+           </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5 class="home-header-top">Reminder</h5>
+    </div>
+    <div class="col-md-4">
+      <h5 class="home-header-top">Sales</h5>
+    </div>
+    <div class="col-md-12">
+      <hr>
+    </div>
+    <div class="col-md-4">
+      <h5 class="home-header-top">Reminders</h5>
+      <ul class="list-group list-group-flush">
+        <% for(var r of reminder){ %>
+        <li class="list-group-item"><%= r.date %>
+          <%
+              for(var rR of reminderR){
+                if(rR.reminder == r.id){%>
+                  <a href="/repair/view/<%= rR.repair %>">
+                    <span class="badge badge-danger badge-pill">Repair</span>
+                  </a>
+              <% }
+              }
+          %>
+          <%
+              for(var rI of reminderI){
+                if(rI.reminder == r.id){%>
+                  <a href="/inquiry/view/<%= rI.inquiry %>">
+                    <span class="badge badge-success badge-pill">Inquiry</span>
+                  </a>
+              <% }
+              }
+          %>
+
+        </li>
+        <% } %>
+      </ul>
+    </div>
+    <div class="col-md-4">
+      <h5 class="home-header-top">Repairs</h5>
+      <div class="form-group">
+        <label for="search_products">Products Client</label>
+        <input type="text" name="search_products" id="search_products" placeholder="Search Product">
+      </div>
+      <div id="product_field" class="col-md-8">
+
+      </div>
+    </div>
+    <div class="col-md-4">
+      <h5 class="home-header-top">Vendors</h5>
+      <% for(var v of vendor){ %>
+        <% var collCount =0;
+
+          for(var cp of cproducts){
+            var pDate = new Date(cp.created_at);
+            var pDate2 = new Date(pDate.toDateString());
+            if(cp.vendor == v.id && today.getTime() == pDate2.getTime()){
+              for(var ci of cinfo){
+                if(ci.collected == cp.id){  %>
+              <% collCount++ %>
+          <% } } }
+          }
+        %>
+        <% var stockCount =0;
+        var prodCount =0;
+          for(var cp of cproducts){
+            if(cp.vendor == v.id){
+              for(var ci of cinfo){
+                if(ci.collected == cp.id && ci.status !='Closed'){
+                  for(var p of product){
+                    if(p.id ==cp.product){
+                       stockCount++;
+                    }
+                  }
+           } } }
+          }
+        %>
+        <%
+          var payCount=0;
+          for(var p of payment){
+            var pDate = new Date(p.created_at);
+            var pDate2 = new Date(pDate.toDateString());
+            if(p.vendor == v.id && pDate2.getTime() == today.getTime()){%>
+            <% payCount = p.amount + payCount; %>
+          <% }
+          }
+          if(stockCount != 0 && prodCount !=0){
+        %>
+      <div class="card card-vendor">
+        <h5 class="card-header bg-success"><%= v.name %></h5>
+        <div class="card-body">
+          <div class="card-cont">
+            <div class="card-amount">
+
+              <%= collCount %>
+            </div>
+            <div class="card-name">
+              Collected
+            </div>
+          </div>
+          <div class="card-cont">
+            <div class="card-amount">
+              <%= stockCount %>
+            </div>
+            <div class="card-name">
+              In Stock
+            </div>
+          </div>
+          <div class="card-cont">
+            <div class="card-amount">
+              <%= prodCount %>
+            </div>
+            <div class="card-name">
+              xxxx
+            </div>
+          </div>
+          <div class="card-cont">
+            <div class="card-amount">
+
+              <%= payCount %>
+            </div>
+            <div class="card-name">
+              Payment
+            </div>
+          </div>
+        </div>
+      </div>
+      <% } } %>
+    </div>
+  </div>
+  <hr>
+  <div class="modal fade" id="home-Modal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title" id="myModalLabel"></h4>
+        </div>
+        <div id="homeBody" class="modal-body">
+
+        </div>
+      </div>
+    </div>
+  </div>
+<% include ../partials/footer %>

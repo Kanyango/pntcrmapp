@@ -1,0 +1,14 @@
+<form action="/settings/edit-tags/<%= tag.id %>" method="post" autocomplete="off">
+  <div class="row">
+    <div class="col-md-6">
+      <div class="form-group">
+        <label class="control-label col-md-12">Tag</label>
+        <div class="col-md-12">
+          <input type="text" class="form-control" value="<%= tag.title %>" name="title">
+        </div>
+      </div>
+    </div>
+    <div class="form-actions padding-20">
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </div>
+  </form>

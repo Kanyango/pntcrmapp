@@ -1,0 +1,49 @@
+<% include ../../partials/header %>
+<div class="page-header">
+	<div class="page-title">
+    Edit Product Info
+	</div>
+	<div class="page-actions">
+
+	</div>
+</div>
+<div class="page-content">
+  <form action="/products/edit-description/<%= products.id %>" method="post" role="form" class="row">
+		<div class="row">
+			<div class="col-md- col-sm-6 col-xs-12 form-group">
+				<label for="youtube" class="col-md-12 col-sm-12 col-xs-12">Youtube</label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<input type="text" name="youtube" class="form-control" placeholder="youtube" value="<%= products.descriptions.youtube %>">
+				</div>
+			</div>
+			<div class="col-md- col-sm-6 col-xs-12"></div>
+			<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+				<label for="box_content" class="col-md-12 col-sm-12 col-xs-12">Box Content</label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<textarea name="box_content" id="box_content" class="tinymce form-control"><%- products.descriptions.box_content %></textarea>
+				</div>
+			</div>
+			<div class="col-md-6 col-sm-6 col-xs-12 form-group">
+				<label for="short" class="col-md-12 col-sm-12 col-xs-12">Highlights</label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<textarea name="short" id="short" class="tinymce form-control"><%- products.descriptions.short %></textarea>
+				</div>
+			</div>
+			<div class="col-md-12 col-sm-12 col-xs-12 form-group">
+				<label for="full" class="col-md-12 col-sm-12 col-xs-12">Description</label>
+				<div class="col-md-12 col-sm-12 col-xs-12">
+					<textarea name="full" id="full" class="tinymce form-control"><%- products.descriptions.full %></textarea>
+				</div>
+			</div>
+		</div>
+    <div class="clearfix"></div>
+    <hr/>
+    <div class="ln_solid"></div>
+    <div class="form-group">
+      <div class="col-md-9 col-sm-9 col-xs-12 col-md-offset-3">
+        <button type="submit" class="btn btn-success">Submit</button>
+      </div>
+    </div>
+  </form>
+</div>
+<% include ../../partials/footer %>
